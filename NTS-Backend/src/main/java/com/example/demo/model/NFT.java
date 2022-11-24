@@ -1,9 +1,12 @@
 package com.example.demo.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -11,10 +14,23 @@ import lombok.Setter;
 
 @Entity
 @Table(name="tbl_nft")
-@Setter
-@Getter
 public class NFT {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long nft_id;
+	private String eth_address;
+	private String name;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="user_id")
+	private User user;
+
+	public Long getNft_id() {
+		return nft_id;
+	}
+	public void setNft_id(Long nft_id) {
+		this.nft_id = nft_id;
+	}
 	public String getEth_address() {
 		return eth_address;
 	}
@@ -27,16 +43,11 @@ public class NFT {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Long getToken_id() {
-		return token_id;
+	public User getUser() {
+		return user;
 	}
-	public void setToken_id(Long token_id) {
-		this.token_id = token_id;
+	public void setUser(User user) {
+		this.user = user;
 	}
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long token_id;
-	private String eth_address;
-	private String name;
 
 }

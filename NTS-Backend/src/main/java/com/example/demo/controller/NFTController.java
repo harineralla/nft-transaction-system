@@ -10,12 +10,15 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.NFT;
+import com.example.demo.model.User;
 import com.example.demo.service.NFTService;
+import com.example.demo.service.UserService;
 
 
 @CrossOrigin("*")
@@ -26,26 +29,38 @@ public class NFTController {
 	@Autowired
 	NFTService nftService;
 	
+	@Autowired
+	UserService userService;
+	
 	@GetMapping("/nfts")
 	public ResponseEntity<List<NFT>> get() {
 		List<NFT> nfts = nftService.findAll();
 		return new ResponseEntity<List<NFT>>(nfts, HttpStatus.OK);
 	}
 	
-	@PostMapping("/nfts")
+	@PostMapping("/nft")
 	public ResponseEntity<NFT> save(@RequestBody NFT nft) {
 //		System.out.println(nft.getToken_id());
 		NFT nftOne = nftService.save(nft);
 		return new ResponseEntity<NFT>(nftOne, HttpStatus.OK);
 	}
 	
-	@GetMapping("/nfts/{id}")
+	@GetMapping("/nft/{id}")
 	public ResponseEntity<NFT> get(@PathVariable("id") Long id) {
 		NFT nft = nftService.findById(id);
 		return new ResponseEntity<NFT>(nft, HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/nfts/{id}")
+	@PutMapping("/user/{user_id}/nft/{nft_id}")
+	public User allocateNFTToOwner(@PathVariable Long user_id,@PathVariable Long nft_id) {
+		User user=userService.findById(user_id);
+		NFT nft =nftService.findById(nft_id);
+		user.asignNFT(nft);
+		nft.setUser(user);
+		return userService.save(user);
+	}
+	
+	@DeleteMapping("/nft/{id}")
 	public ResponseEntity<String> delete(@PathVariable("id") Long id) {
 		nftService.delete(id);
 		return new ResponseEntity<String>("NFT is deleted successfully.!", HttpStatus.OK);

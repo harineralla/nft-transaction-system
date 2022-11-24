@@ -35,8 +35,8 @@ public class NFTServiceImpl implements NFTService{
 
 	@Override
 	public void delete(Long id) {
-		NFT expense = findById(id);
-		nftRepository.delete(expense);
+		NFT nft = findById(id);
+		nftRepository.delete(nft);
 	}
 	
 }
