@@ -5,9 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.model.NFT;
 import com.example.demo.model.User;
-import com.example.demo.repository.NFTRepository;
 import com.example.demo.repository.UserRepository;
 
 @Service
