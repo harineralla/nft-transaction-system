@@ -39,7 +39,6 @@ public class UserController {
 	
 	@PostMapping("/user")
 	public ResponseEntity<User> save(@RequestBody User user) {
-//		System.out.println(nft.getToken_id());
 		User userOne = userService.save(user);
 		return new ResponseEntity<User>(userOne, HttpStatus.OK);
 	}
@@ -60,10 +59,28 @@ public class UserController {
 	public ResponseEntity<User> userRegister(@RequestBody UserRegister obj){
 		Address address = obj.getAddress();
 		User user = obj.getUser();
+		if(userService.findByEmail(user.getEmail()) !=null) {
+			return new ResponseEntity("email already Exists",HttpStatus.BAD_REQUEST);
+		}
 		addressService.save(address);
 		userService.save(user);
 		address.setUser(user);
 		user.setAddress(address);
+		return new ResponseEntity<User>(user, HttpStatus.OK);
+	}
+	
+	@GetMapping("/user/signIn/{email}/{password}")
+	public ResponseEntity<User> userSignIn(@PathVariable("email") String email,@PathVariable("password") String password){
+		User user=null;
+		try {
+			user=userService.findByEmail(email);
+			if(!(user.getPassword()).equals(password)) {
+				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			}
+		}catch(Exception e) {
+			return new ResponseEntity("user does not exist", HttpStatus.BAD_REQUEST);
+		}
+		
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 	

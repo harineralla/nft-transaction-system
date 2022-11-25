@@ -39,5 +39,18 @@ public class UserServiceImpl implements UserService{
 		userRepository.delete(user);
 	}
 
+	@Override
+	public User findByEmail(String email) {
+		try {
+			if(userRepository.findByEmail(email)!=null){
+				return userRepository.findByEmail(email);
+			}
+		}catch(Exception e) {
+			System.out.println("Internal Server Exception");
+		}
+	
+		return null;
+	}
+
 
 }
