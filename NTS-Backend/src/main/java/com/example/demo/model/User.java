@@ -31,6 +31,7 @@ public class User {
 	//make this unique
 	private String email;
 	private String password;
+	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
 	private Address address;

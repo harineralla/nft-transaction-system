@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.model.Address;
 import com.example.demo.model.User;
+import com.example.demo.model.UserRegister;
+import com.example.demo.service.AddressService;
 import com.example.demo.service.UserService;
 
 @CrossOrigin("*")
@@ -24,6 +27,9 @@ public class UserController {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired 
+	AddressService addressService;
 	
 	@GetMapping("/users")
 	public ResponseEntity<List<User>> get() {
@@ -49,4 +55,16 @@ public class UserController {
 		userService.delete(id);
 		return new ResponseEntity<String>("User is deleted successfully.!", HttpStatus.OK);
 	}
+	
+	@PostMapping("/user/register")
+	public ResponseEntity<User> userRegister(@RequestBody UserRegister obj){
+		Address address = obj.getAddress();
+		User user = obj.getUser();
+		addressService.save(address);
+		userService.save(user);
+		address.setUser(user);
+		user.setAddress(address);
+		return new ResponseEntity<User>(user, HttpStatus.OK);
+	}
+	
 }
