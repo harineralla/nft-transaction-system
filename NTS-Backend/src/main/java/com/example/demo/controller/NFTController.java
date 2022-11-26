@@ -65,4 +65,11 @@ public class NFTController {
 		nftService.delete(id);
 		return new ResponseEntity<String>("NFT is deleted successfully.!", HttpStatus.OK);
 	}
+	
+	@GetMapping("/list/user/nfts/{user_id}")
+	public ResponseEntity<List<NFT>> listNfts(@PathVariable Long user_id){
+		List<NFT> nfts = nftService.getAllNFTs(user_id);
+		return new ResponseEntity<List<NFT>>(nfts, HttpStatus.OK);
+	}
+	
 }

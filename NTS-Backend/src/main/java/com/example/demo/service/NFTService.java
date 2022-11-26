@@ -12,4 +12,8 @@ public interface NFTService {
 	NFT findById(Long id);
 	
 	void delete(Long id);
+
+	List<NFT> getAllNFTs(Long user_id);
+	
+	
 }

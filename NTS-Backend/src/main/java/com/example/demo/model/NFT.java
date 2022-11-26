@@ -1,6 +1,9 @@
 package com.example.demo.model;
 
+import java.math.BigDecimal;
+
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,11 +18,15 @@ import javax.persistence.Table;
 @Table(name="tbl_nft")
 public class NFT {
 
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long nft_id;
 	private String eth_address;
 	private String name;
+	private BigDecimal price;
+	@Column(columnDefinition = "boolean default false")
+	private boolean wants_to_sell;
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="user_id")
 	private User user;
@@ -48,5 +55,16 @@ public class NFT {
 	public void setUser(User user) {
 		this.user = user;
 	}
-
+	public BigDecimal getPrice() {
+		return price;
+	}
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
+	public boolean isWants_to_sell() {
+		return wants_to_sell;
+	}
+	public void setWants_to_sell(boolean wants_to_sell) {
+		this.wants_to_sell = wants_to_sell;
+	}
 }

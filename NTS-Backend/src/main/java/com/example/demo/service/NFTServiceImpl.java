@@ -39,4 +39,13 @@ public class NFTServiceImpl implements NFTService{
 		nftRepository.delete(nft);
 	}
 	
+	public List<NFT> getAllNFTs(Long user_id){
+		System.out.println("sfwiufy "+user_id);
+		System.out.println(nftRepository.findNftOwnedByUsers(user_id).getClass().getName());
+		List<NFT> lis =nftRepository.findNftOwnedByUsers(user_id);
+		System.out.println(lis.get(0).getNft_id());
+		System.out.println(lis);
+		return lis;
+	}
+	
 }
