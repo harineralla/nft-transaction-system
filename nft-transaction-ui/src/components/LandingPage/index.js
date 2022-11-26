@@ -1,44 +1,28 @@
-import React from "react";
+import { React, useState } from "react";
+import { Button, Modal } from 'antd';
 import { Link } from "react-router-dom";
 
+import RegisterForm from "../RegisterForm";
+import { getUserNFTs } from "../../redux/actions";
 import "./index.css";
 
+
 export default function LandingPage() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+    const handleOk = () => {
+        getUserNFTs();
+        setIsModalOpen(false);
+    };
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
     return (
         <div style={BodyStyle}>
-            {/* <form action="/dashboard">
-                <p>
-                    <label>Username or email address</label><br />
-                    <input type="text" name="first_name" required />
-                </p>
-                <p>
-                    <label>Password</label>
-                    <Link to="/forget-password"><label className="right-label">Forget password?</label></Link>
-                    <br />
-                    <input type="password" name="password" required />
-                </p>
-                <p>
-                    <button id="sub_btn" type="submit">Login</button>
-                </p>
-            </form>
-            <footer>
-                <p>First time? <Link to="/register">Create an account</Link>.</p>
-                <p><Link to="/">Back to Homepage</Link>.</p>
-            </footer> */}
-
-            {/* <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
-            <div className="buttons text-center">
-                <Link to="/login">
-                    <button className="primary-button">log in</button>
-                </Link>
-                <Link to="/register">
-                    <button className="primary-button" id="reg_btn"><span>register </span></button>
-                </Link>
-            </div> */}
-
-
-
-
             <section className="vh-100 gradient-custom">
                 <div className="container py-5 h-50">
                     <div className="row d-flex justify-content-center align-items-center h-100">
@@ -67,9 +51,11 @@ export default function LandingPage() {
                                 </div>
                                 <div>
                                     <p className="mb-0 mr-1">Don't have an account?</p>
-                                    <Link to="/register">
-                                        <button className="primary-button" id="reg_btn"><span>register </span></button>
-                                    </Link>
+                                    {/* <Link to="/register"> */}
+                                    <Button type="primary" onClick={showModal}>
+                                        Register
+                                    </Button>
+                                    {/* </Link> */}
                                 </div>
 
                             </form>
@@ -78,6 +64,12 @@ export default function LandingPage() {
                     </div>
                 </div>
             </section>
+            <>
+
+                <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                    <RegisterForm />
+                </Modal>
+            </>
         </div>
 
     )
