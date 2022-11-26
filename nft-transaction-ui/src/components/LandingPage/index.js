@@ -19,26 +19,28 @@ export default function LandingPage() {
     };
     return (
         <div style={BodyStyle}>
-            <section className="vh-100 gradient-custom">
-                <div className="container py-5 h-50">
-                    <div className="row d-flex justify-content-center align-items-center h-100">
+            <section className="vh-100 gradient-custom la-bg-img">
+                <div className="container py-0 h-50 ">
+                    <div className="row d-flex justify-content-center align-items-center h-50">
                         <div className="col-12 col-md-8 col-lg-6 col-xl-5">
                             {/* <div className="card bg-dark text-white" style={{ borderRadius: "1rem;" }}> */}
-                            <form className="card bg-opacity-75 card-body p-1 text-center">
-                                <div className="mb-md-5 mt-md-4 pb-5">
+                            <form className="card bg-opacity-75 card-body p-1 text-center cont-img">
+                                <div className="mb-md-2 mt-md-4 pt-md-1 pb-2">
                                     {/* <form action="/dashboard" className="card-body p-5 text-center"> */}
                                     <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
-                                    <p className="text-white-50 mb-5">Please enter your login and password!</p>
+                                    <p className="text-black mb-3">Please enter your login and password!</p>
                                     <div className="form-outline form-white mb-4">
+                                    <label className="form-label">Email</label>
                                         <input type="email" id="typeEmailX" className="form-control form-control-lg" />
-                                        <label className="form-label">Email</label>
+                                        
                                     </div>
                                     <div className="form-outline form-white mb-4">
+                                    <label className="form-label">Password</label>
                                         <input type="password" id="typePasswordX" className="form-control form-control-lg" />
-                                        <label className="form-label">Password</label>
+                                        
                                     </div>
 
-                                    <p className="small mb-5 pb-lg-2"><a className="text-white-50" href="#!">Forgot password?</a></p>
+                                    <p className="small mb-2 pb-lg-2"><a className="text-black" href="#!">Forgot password?</a></p>
 
                                     <Link to="/dashboard">
                                         <button className="primary-button" >log in</button>
@@ -46,7 +48,7 @@ export default function LandingPage() {
                                     {/* </form> */}
                                 </div>
                                 <div>
-                                    <p className="mb-0 mr-1">Don't have an account?</p>
+                                    <p className="mb-0 mr-1 pb-2">Don't have an account?</p>
                                     {/* <Link to="/register"> */}
                                     <Button type="primary" onClick={showModal}>
                                         Register

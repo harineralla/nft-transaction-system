@@ -82,6 +82,7 @@ root {
 
 body {
     margin: 0;
+    overflow: hidden;
     font-family: var(--bs-body-font-family);
     font-size: var(--bs-body-font-size);
     font-weight: var(--bs-body-font-weight);
@@ -200,6 +201,15 @@ address {
     font-style: normal;
     line-height: inherit
 }
+
+.la-bg-img{
+    background-image: url("land_bg_image.jpg");
+}
+
+.cont-img{
+    background-image: url("cont_img.jpg");
+}
+
 
 ol,
 ul {
