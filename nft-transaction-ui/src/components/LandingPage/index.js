@@ -20,12 +20,12 @@ export default function LandingPage() {
     return (
         <div style={BodyStyle}>
             <section className="vh-100 gradient-custom la-bg-img">
-                <div className="container py-0 h-50 ">
+                <div className="container py-1 h-50 ">
                     <div className="row d-flex justify-content-center align-items-center h-50">
                         <div className="col-12 col-md-8 col-lg-6 col-xl-5">
                             {/* <div className="card bg-dark text-white" style={{ borderRadius: "1rem;" }}> */}
-                            <form className="card bg-opacity-75 card-body p-1 text-center cont-img">
-                                <div className="mb-md-2 mt-md-4 pt-md-1 pb-2">
+                            <form className="card bg-opacity-75 card-body p-3 text-center cont-img">
+                                <div className="mb-md-2 mt-md-4 pt-md-1 pb-1">
                                     {/* <form action="/dashboard" className="card-body p-5 text-center"> */}
                                     <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
                                     <p className="text-black mb-3">Please enter your login and password!</p>
