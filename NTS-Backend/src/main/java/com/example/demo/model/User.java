@@ -22,6 +22,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name="tbl_user")
 public class User {
 	
+	@Override
+	public String toString() {
+		return "User [user_id=" + user_id + ", name=" + name + ", ph_no=" + ph_no + ", cell_no=" + cell_no + ", email="
+				+ email + ", password=" + password + ", address=" + address + ", eth_address=" + eth_address
+				+ ", level=" + level + ", eth_balance=" + eth_balance + ", fiat_balance=" + fiat_balance + ", nfts="
+				+ nfts + ", deposits=" + deposits + "]";
+	}
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long user_id ;
@@ -39,8 +46,11 @@ public class User {
 	private Address address;
 	//confirm the variable type
 	private String eth_address;
+	@Column(columnDefinition = "boolean default false")
 	private boolean level;
+	@Column(columnDefinition="Decimal(10,2) default '0.00'")
 	private BigDecimal eth_balance;
+	@Column(columnDefinition="Decimal(10,2) default '0.00'")
 	private BigDecimal fiat_balance;
 	@JsonIgnore
 	@OneToMany(mappedBy="user")
@@ -124,6 +134,12 @@ public class User {
 	}
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+	public List<Deposit> getDeposits() {
+		return deposits;
+	}
+	public void setDeposits(List<Deposit> deposits) {
+		this.deposits = deposits;
 	}
 
 

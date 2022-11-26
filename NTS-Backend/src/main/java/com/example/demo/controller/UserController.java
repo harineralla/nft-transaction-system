@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,8 @@ public class UserController {
 	
 	@PostMapping("/user")
 	public ResponseEntity<User> save(@RequestBody User user) {
+		user.setEth_balance(new BigDecimal(0));
+		user.setFiat_balance(new BigDecimal(0));
 		User userOne = userService.save(user);
 		return new ResponseEntity<User>(userOne, HttpStatus.OK);
 	}
@@ -46,6 +49,8 @@ public class UserController {
 	@GetMapping("/user/{id}")
 	public ResponseEntity<User> get(@PathVariable("id") Long id) {
 		User user = userService.findById(id);
+		if(user == null)
+			return new ResponseEntity("User Not Found!!",HttpStatus.BAD_REQUEST);
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 	
@@ -63,6 +68,8 @@ public class UserController {
 			return new ResponseEntity("email already Exists",HttpStatus.BAD_REQUEST);
 		}
 		addressService.save(address);
+		user.setEth_balance(new BigDecimal(0));
+		user.setFiat_balance(new BigDecimal(0));
 		userService.save(user);
 		address.setUser(user);
 		user.setAddress(address);

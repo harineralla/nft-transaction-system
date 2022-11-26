@@ -1,9 +1,10 @@
 package com.example.demo.model;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,16 +13,27 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 @Entity
 @Table(name="tbl_deposit")
 public class Deposit {
+	@Override
+	public String toString() {
+		return "Deposit [deposit_id=" + deposit_id + ", fiat_amt=" + fiat_amt + ", eth_amt=" + eth_amt
+				+ ", date_of_payment=" + date_of_payment + ", user=" + user + ", type=" + type + ", payment_address="
+				+ payment_address + "]";
+	}
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long deposit_id ;
+	@Column(columnDefinition="Decimal(10,2) default '0.00'")
 	private BigDecimal fiat_amt;
+	@Column(columnDefinition="Decimal(10,2) default '0.00'")
 	private BigDecimal eth_amt;
+	@CreationTimestamp
 	private Date date_of_payment;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name="user_id")
 	private User user;
 	private String type;
