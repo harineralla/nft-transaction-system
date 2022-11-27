@@ -51,6 +51,15 @@ public class NFTController {
 		return new ResponseEntity<NFT>(nft, HttpStatus.OK);
 	}
 	
+	@GetMapping("/nft/sell/{nft_id}")
+	public ResponseEntity<NFT> ToggleSell(@PathVariable("nft_id") Long id){
+		NFT nft=get(id).getBody();
+		nft.setWants_to_sell(!nft.isWants_to_sell());
+		nftService.save(nft);
+		return new ResponseEntity<NFT>(nft, HttpStatus.OK);
+	}
+	
+	
 	@PutMapping("/user/{user_id}/nft/{nft_id}")
 	public User allocateNFTToOwner(@PathVariable Long user_id,@PathVariable Long nft_id) {
 		User user=userService.findById(user_id);
