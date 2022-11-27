@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.Address;
+import com.example.demo.model.NFT;
 import com.example.demo.model.User;
 import com.example.demo.model.UserRegister;
 import com.example.demo.service.AddressService;
@@ -44,6 +46,20 @@ public class UserController {
 		user.setFiat_balance(new BigDecimal(0));
 		User userOne = userService.save(user);
 		return new ResponseEntity<User>(userOne, HttpStatus.OK);
+	}
+	
+	@PutMapping("/user")
+	public ResponseEntity<User> saveOrUpdate(@RequestBody User user){
+		User usr = userService.save(user);
+		return new ResponseEntity<User>(usr,HttpStatus.OK);
+	}
+	
+	@GetMapping("/user/update_level/{user_id}")
+	public ResponseEntity<User> updateLevel(@PathVariable("user_id") Long id){
+		User user = get(id).getBody();
+		user.setLevel(!user.isLevel());
+		userService.save(user);
+		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 	
 	@GetMapping("/user/{id}")
