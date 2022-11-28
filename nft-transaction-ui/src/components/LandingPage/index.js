@@ -14,10 +14,6 @@ export default function LandingPage() {
     const showModal = () => {
         setIsModalOpen(true);
     };
-    const handleOk = () => {
-        getUserNFTs();
-        setIsModalOpen(false);
-    };
     const handleCancel = () => {
         setIsModalOpen(false);
     };
@@ -28,7 +24,7 @@ export default function LandingPage() {
                     <div className="row d-flex justify-content-center align-items-center h-100">
                         <div className="col-12 col-md-8 col-lg-6 col-xl-5">
                             {/* <div className="card bg-dark text-white" style={{ borderRadius: "1rem;" }}> */}
-                            <form className="card bg-opacity-75 card-body p-1 text-center" style={{ borderRadius: "3rem;" }}>
+                            <form className="card bg-opacity-75 card-body p-1 text-center">
                                 <div className="mb-md-5 mt-md-4 pb-5">
                                     {/* <form action="/dashboard" className="card-body p-5 text-center"> */}
                                     <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
@@ -65,8 +61,12 @@ export default function LandingPage() {
                 </div>
             </section>
             <>
-
-                <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                <Modal title="Basic Modal"
+                    open={isModalOpen}
+                    // onOk={handleOk} 
+                    onCancel={handleCancel}
+                    footer={null}
+                >
                     <RegisterForm />
                 </Modal>
             </>

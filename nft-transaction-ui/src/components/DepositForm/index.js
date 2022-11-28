@@ -1,37 +1,32 @@
-import React from 'react';
-import { Button, Checkbox, Form, Input, InputNumber } from 'antd';
-
-import { saveUserDetails } from '../redux/actions';
-
-import "../styles/landingPage.css";
+import { React, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Button, Checkbox, Form, Input, InputNumber } from 'antd';
+import { saveDepositDetails } from '../../redux/actions';
 
-const BASE_URL = "http://localhost:8080/v1";
 
-export default function RegisterForm() {
+export default function DepositForm() {
+
     const dispatch = useDispatch();
 
     const onFinish = (details) => {
         var userdetails = {
+            "fiat_amt": details["fiat-amount"],
             "user": {
-                "name": details["first-name"].concat(" ", details["last-name"]),
-                "cell-no": details["cell-number"],
-                "ph-no": details["phone-number"],
+                "user_id": details["user-id"],
+                "name": details["name"],
+                "ph_no": details["phone-number"],
+                "cell_no": details["cell-number"],
                 "email": details["email"],
                 "password": details["password"],
                 "eth_address": details["ethereum-address"],
-                "level": 0,
-                "eth_balance": 0.0,
-                "fiat_balance": 0.0,
+                "level": details["level"],
+                "eth_balance": details["ethereum-balance"],
+                "fiat_balance": details["fiat-balance"]
             },
-            "address": {
-                "street_address": details["street-address"],
-                "city": details["city"],
-                "state": details["state"],
-                "zip_code": details["zipcode"]
-            }
+            "type": details["type"],
+            "payment_address": details["payment-address"]
         };
-        dispatch(saveUserDetails(userdetails))
+        dispatch(saveDepositDetails(userdetails));
     }
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -53,12 +48,12 @@ export default function RegisterForm() {
             autoComplete="off"
         >
             <Form.Item
-                label="First Name"
-                name="first-name"
+                label="Fiat Amount"
+                name="fiat-amount"
                 rules={[
                     {
                         required: true,
-                        message: 'Please input your first name!',
+                        message: 'Please input your fiat amount!',
                     },
                 ]}
             >
@@ -66,8 +61,8 @@ export default function RegisterForm() {
             </Form.Item>
 
             <Form.Item
-                label="Last Name"
-                name="last-name"
+                label="User ID"
+                name="user-id"
                 rules={[
                     {
                         required: true,
@@ -76,6 +71,17 @@ export default function RegisterForm() {
                 ]}
             >
                 <Input />
+            </Form.Item>
+            <Form.Item
+                name="name"
+                label="Name"
+                rules={[
+                    {
+                        type: 'number',
+                    },
+                ]}
+            >
+                <InputNumber />
             </Form.Item>
             <Form.Item
                 name="phone-number"
@@ -128,28 +134,6 @@ export default function RegisterForm() {
                 <Input.Password />
             </Form.Item>
             <Form.Item
-                name="confirm-password"
-                label="Confirm Password"
-                dependencies={['password']}
-                hasFeedback
-                rules={[
-                    {
-                        required: true,
-                        message: 'Please confirm your password!',
-                    },
-                    ({ getFieldValue }) => ({
-                        validator(_, value) {
-                            if (!value || getFieldValue('password') === value) {
-                                return Promise.resolve();
-                            }
-                            return Promise.reject(new Error('The two passwords that you entered do not match!'));
-                        },
-                    }),
-                ]}
-            >
-                <Input.Password />
-            </Form.Item>
-            <Form.Item
                 label="Ethereum Address"
                 name="ethereum-address"
                 rules={[
@@ -161,98 +145,65 @@ export default function RegisterForm() {
             >
                 <Input />
             </Form.Item>
-            {/* <Form.Item
-                name="level"
+            <Form.Item
                 label="Level"
+                name="level"
                 rules={[
                     {
-                        type: 'number',
+                        required: true,
+                        message: 'Please input your level!',
                     },
                 ]}
             >
-                <InputNumber />
-            </Form.Item> */}
-            {/* <Form.Item
-                name="eth-balance"
+                <Input />
+            </Form.Item>
+            <Form.Item
                 label="Ethereum Balance"
+                name="ethereum-balance"
                 rules={[
                     {
-                        type: 'number',
+                        required: true,
+                        message: 'Please input your ethereum balance!',
                     },
                 ]}
             >
-                <InputNumber />
+                <Input />
             </Form.Item>
             <Form.Item
-                name="fiat-balance"
                 label="Fiat Balance"
-                rules={[
-                    {
-                        type: 'number',
-                    },
-                ]}
-            >
-                <InputNumber />
-            </Form.Item> */}
-            {/* <Form.Item
-                name="remember"
-                valuePropName="checked"
-                wrapperCol={{
-                    offset: 8,
-                    span: 16,
-                }}
-            >
-                <Checkbox>Remember me</Checkbox>
-            </Form.Item> */}
-
-            <Form.Item
-                label="Street Address"
-                name="street-address"
+                name="fiat-balance"
                 rules={[
                     {
                         required: true,
-                        message: 'Please input your last name!',
+                        message: 'Please input your fiat balance!',
                     },
                 ]}
             >
                 <Input />
             </Form.Item>
             <Form.Item
-                label="City"
-                name="city"
+                label="Type"
+                name="type"
                 rules={[
                     {
                         required: true,
-                        message: 'Please input your last name!',
+                        message: 'Please input your type!',
                     },
                 ]}
             >
                 <Input />
             </Form.Item>
             <Form.Item
-                label="State"
-                name="state"
+                label="Payment Address"
+                name="payment-address"
                 rules={[
                     {
                         required: true,
-                        message: 'Please input your last name!',
+                        message: 'Please input your payment address!',
                     },
                 ]}
             >
                 <Input />
-            </Form.Item>
-            <Form.Item
-                name="Zip Code"
-                label="zip-code"
-                rules={[
-                    {
-                        type: 'number',
-                        required: true,
-                        message: 'Please input your last name!',
-                    },
-                ]}
-            >
-                <InputNumber />
             </Form.Item>
             <Form.Item
                 wrapperCol={{
@@ -266,5 +217,4 @@ export default function RegisterForm() {
             </Form.Item>
         </Form>
     )
-
 }

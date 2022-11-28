@@ -1,25 +1,29 @@
-import { SAMPLE_ACTION_TYPE } from "../actions/types";
+import { POST_USER_DETAILS, GET_USER_DETAILS, POST_DEPOSIT_DETAILS } from "../actions/types";
 
 const initialState = {
-    // user: {
-    //     "name": "",
-    //     "cell-number": 0,
-    //     "email": "",
-    //     "password": "",
-    //     "phone-number": 0,
-    //     "eth-balance": 0,
-    //     "ethereum-address": 0,
-    //     "fiat-balance": 0
-    // }
-    user: {}
+    user: {},
+    requestedUser: {},
+    depositDetails: {}
 }
 
 const userReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SAMPLE_ACTION_TYPE: {
+        case POST_USER_DETAILS: {
             return {
                 ...state,
                 user: action.payload.user
+            }
+        }
+        case GET_USER_DETAILS:{
+            return {
+                ...state,
+                requestedUser: action.payload
+            }
+        }
+        case POST_DEPOSIT_DETAILS: {
+            return {
+                ...state,
+                depositDetails: action.payload
             }
         }
         default: return state;
