@@ -52,5 +52,18 @@ public class UserServiceImpl implements UserService{
 		return null;
 	}
 
+	@Override
+	public User findByETHAddresUser(String eth_address) {
+		try {
+			if(userRepository.findByEthAddress(eth_address)!=null){
+				return userRepository.findByEthAddress(eth_address);
+			}
+		}catch(Exception e) {
+			System.out.println("Internal Server Exception");
+		}
+	
+		return null;
+	}
+
 
 }

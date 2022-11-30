@@ -25,7 +25,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [user_id=" + user_id + ", name=" + name + ", ph_no=" + ph_no + ", cell_no=" + cell_no + ", email="
-				+ email + ", password=" + password + ", address=" + address + ", eth_address=" + eth_address
+				+ email + ", password=" + password + ", address=" + address + ", eth_address=" + ethAddress
 				+ ", level=" + level + ", eth_balance=" + eth_balance + ", fiat_balance=" + fiat_balance + ", nfts="
 				+ nfts + ", deposits=" + deposits + "]";
 	}
@@ -45,7 +45,9 @@ public class User {
     @JoinColumn(name = "address_id")
 	private Address address;
 	//confirm the variable type
-	private String eth_address;
+	@Column(unique=true)
+	private String ethAddress;
+	//true ->gold | false ->silver
 	@Column(columnDefinition = "boolean default false")
 	private boolean level;
 	@Column(columnDefinition="Decimal(10,2) default '0.00'")
@@ -58,6 +60,12 @@ public class User {
 	@JsonIgnore
 	@OneToMany(mappedBy="user")
 	private List<Deposit> deposits = new ArrayList<>();
+	// @JsonIgnore
+	// // @OneToMany(mappedBy="buyer")
+	// private List<Transaction> buy_Transactions = new ArrayList<>();
+	// @JsonIgnore
+	// // @OneToMany(mappedBy="seller")
+	// private List<Transaction> sell_Transactions = new ArrayList<>();
 	
 	
 	public Long getUser_id() {
@@ -97,10 +105,10 @@ public class User {
 		this.password = password;
 	}
 	public String getEth_address() {
-		return eth_address;
+		return ethAddress;
 	}
 	public void setEth_address(String eth_address) {
-		this.eth_address = eth_address;
+		this.ethAddress = eth_address;
 	}
 	public boolean isLevel() {
 		return level;
@@ -141,6 +149,18 @@ public class User {
 	public void setDeposits(List<Deposit> deposits) {
 		this.deposits = deposits;
 	}
+	// public List<Transaction> getBuy_Transactions() {
+	// 	return buy_Transactions;
+	// }
+	// public void setBuy_Transactions(List<Transaction> buy_Transactions) {
+	// 	this.buy_Transactions = buy_Transactions;
+	// }
+	// public List<Transaction> getSell_Transactions() {
+	// 	return sell_Transactions;
+	// }
+	// public void setSell_Transactions(List<Transaction> sell_Transactions) {
+	// 	this.sell_Transactions = sell_Transactions;
+	// }
 
 
 }
