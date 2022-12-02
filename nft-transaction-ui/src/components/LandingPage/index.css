@@ -87,6 +87,7 @@ body {
     font-weight: var(--bs-body-font-weight);
     line-height: var(--bs-body-line-height);
     color: var(--bs-body-color);
+    overflow: hidden;
     text-align: var(--bs-body-text-align);
     background-color: var(--bs-body-bg);
     -webkit-text-size-adjust: 100%;
@@ -200,6 +201,15 @@ address {
     font-style: normal;
     line-height: inherit
 }
+
+.la-bg-img{
+    background-image: url("land_bg_image.jpg");
+}
+
+.cont-img{
+    background-image: url("cont_img.jpg");
+}
+
 
 ol,
 ul {
