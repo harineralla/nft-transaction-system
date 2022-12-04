@@ -1,84 +1,134 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { React, useState } from "react";
+import { Form, Input, Checkbox, Button, Modal } from "antd";
+import { useDispatch } from "react-redux";
+import { Redirect, useNavigate } from 'react-router-dom';
 
+import RegisterForm from "../RegisterForm";
+import { getUserNFTs } from "../../redux/actions";
+import { validateUserLogin } from "../../redux/actions";
 import "./index.css";
 
-export default function LandingPage() {
+
+export default function LandingPage({ history }) {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isUser, checkUserCreds] = useState(false);
+
+    const onFinish = (e) => {
+        console.log("on finish", e);
+        navigate("/dashboard")
+        {/* if (dispatch(validateUserLogin({ "username": e.username, "password": e.password }))) {
+            checkUserCreds(true)
+        } else {
+            return (
+                <>{
+                    !isUser?
+                        <>
+                            <Alert
+                                message="Error"
+                                description="Login Credentials are wrong"
+                                type="error"
+                                showIcon
+                            />
+                        </> :
+                        <></>
+                }</>
+            )
+        } */}
+    }
+
+    const onFinishFailed = () => {
+        console.log("on finish failed")
+    }
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
     return (
         <div style={BodyStyle}>
-            {/* <form action="/dashboard">
-                <p>
-                    <label>Username or email address</label><br />
-                    <input type="text" name="first_name" required />
-                </p>
-                <p>
-                    <label>Password</label>
-                    <Link to="/forget-password"><label className="right-label">Forget password?</label></Link>
-                    <br />
-                    <input type="password" name="password" required />
-                </p>
-                <p>
-                    <button id="sub_btn" type="submit">Login</button>
-                </p>
-            </form>
-            <footer>
-                <p>First time? <Link to="/register">Create an account</Link>.</p>
-                <p><Link to="/">Back to Homepage</Link>.</p>
-            </footer> */}
+            <Form
+                name="basic"
+                labelCol={{
+                    span: 8,
+                }}
+                wrapperCol={{
+                    span: 16,
+                }}
+                initialValues={{
+                    remember: true,
+                }}
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
+                autoComplete="off"
+            >
+                <Form.Item
+                    label="Username"
+                    name="username"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please input your username!',
+                        },
+                    ]}
+                >
+                    <Input />
+                </Form.Item>
 
-            {/* <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
-            <div className="buttons text-center">
-                <Link to="/login">
-                    <button className="primary-button">log in</button>
-                </Link>
-                <Link to="/register">
-                    <button className="primary-button" id="reg_btn"><span>register </span></button>
-                </Link>
-            </div> */}
+                <Form.Item
+                    label="Password"
+                    name="password"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please input your password!',
+                        },
+                    ]}
+                >
+                    <Input.Password />
+                </Form.Item>
 
+                <Form.Item
+                    name="remember"
+                    valuePropName="checked"
+                    wrapperCol={{
+                        offset: 8,
+                        span: 16,
+                    }}
+                >
+                    <Checkbox>Remember me</Checkbox>
+                </Form.Item>
 
-
-
-            <section className="vh-100 gradient-custom">
-                <div className="container py-5 h-50">
-                    <div className="row d-flex justify-content-center align-items-center h-100">
-                        <div className="col-12 col-md-8 col-lg-6 col-xl-5">
-                            {/* <div className="card bg-dark text-white" style={{ borderRadius: "1rem;" }}> */}
-                            <form className="card bg-opacity-75 card-body p-1 text-center" style={{ borderRadius: "3rem;" }}>
-                                <div className="mb-md-5 mt-md-4 pb-5">
-                                    {/* <form action="/dashboard" className="card-body p-5 text-center"> */}
-                                    <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
-                                    <p className="text-white-50 mb-5">Please enter your login and password!</p>
-                                    <div className="form-outline form-white mb-4">
-                                        <input type="email" id="typeEmailX" className="form-control form-control-lg" />
-                                        <label className="form-label">Email</label>
-                                    </div>
-                                    <div className="form-outline form-white mb-4">
-                                        <input type="password" id="typePasswordX" className="form-control form-control-lg" />
-                                        <label className="form-label">Password</label>
-                                    </div>
-
-                                    <p className="small mb-5 pb-lg-2"><a className="text-white-50" href="#!">Forgot password?</a></p>
-
-                                    <Link to="/dashboard">
-                                        <button className="primary-button" >log in</button>
-                                    </Link>
-                                    {/* </form> */}
-                                </div>
-                                <div>
-                                    <p className="mb-0 mr-1">Don't have an account?</p>
-                                    <Link to="/register">
-                                        <button className="primary-button" id="reg_btn"><span>register </span></button>
-                                    </Link>
-                                </div>
-
-                            </form>
-                            {/* </div> */}
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
+                <Form.Item
+                    wrapperCol={{
+                        offset: 8,
+                        span: 16,
+                    }}
+                >
+                    <Button type="primary" htmlType="submit">
+                        Submit
+                    </Button>
+                </Form.Item>
+            </Form>
+            <div>
+                <p className="mb-0 mr-1 pb-2">Don't have an account?</p>
+                <Button type="primary" onClick={showModal}>
+                    Register
+                </Button>
+            </div>
+            <>
+                <Modal title="Basic Modal"
+                    open={isModalOpen}
+                    // onOk={handleOk} 
+                    onCancel={handleCancel}
+                    footer={null}
+                >
+                    <RegisterForm />
+                </Modal>
+            </>
+        </div >
 
     )
 }
