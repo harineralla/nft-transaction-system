@@ -1,16 +1,46 @@
 import { React, useState } from "react";
-import { Button, Modal } from 'antd';
-import { Link } from "react-router-dom";
+import { Form, Input, Checkbox, Button, Modal } from "antd";
+import { useDispatch } from "react-redux";
+import { Redirect, useNavigate } from 'react-router-dom';
 
 import RegisterForm from "../RegisterForm";
 import { getUserNFTs } from "../../redux/actions";
+import { validateUserLogin } from "../../redux/actions";
 import "./index.css";
 
 
-export default function LandingPage() {
+export default function LandingPage({ history }) {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isUser, checkUserCreds] = useState(false);
 
+    const onFinish = (e) => {
+        console.log("on finish", e);
+        navigate("/dashboard")
+        {/* if (dispatch(validateUserLogin({ "username": e.username, "password": e.password }))) {
+            checkUserCreds(true)
+        } else {
+            return (
+                <>{
+                    !isUser?
+                        <>
+                            <Alert
+                                message="Error"
+                                description="Login Credentials are wrong"
+                                type="error"
+                                showIcon
+                            />
+                        </> :
+                        <></>
+                }</>
+            )
+        } */}
+    }
 
+    const onFinishFailed = () => {
+        console.log("on finish failed")
+    }
     const showModal = () => {
         setIsModalOpen(true);
     };
@@ -19,49 +49,75 @@ export default function LandingPage() {
     };
     return (
         <div style={BodyStyle}>
-            <section className="vh-100 gradient-custom la-bg-img">
-                <div className="container py-1 h-50 ">
-                    <div className="row d-flex justify-content-center align-items-center h-50">
-                        <div className="col-12 col-md-8 col-lg-6 col-xl-5">
-                            {/* <div className="card bg-dark text-white" style={{ borderRadius: "1rem;" }}> */}
-                            <form className="card bg-opacity-75 card-body p-3 text-center cont-img">
-                                <div className="mb-md-2 mt-md-4 pt-md-1 pb-1">
-                                    {/* <form action="/dashboard" className="card-body p-5 text-center"> */}
-                                    <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
-                                    <p className="text-black mb-3">Please enter your login and password!</p>
-                                    <div className="form-outline form-white mb-4">
-                                    <label className="form-label">Email</label>
-                                        <input type="email" id="typeEmailX" className="form-control form-control-lg" />
-                                        
-                                    </div>
-                                    <div className="form-outline form-white mb-4">
-                                    <label className="form-label">Password</label>
-                                        <input type="password" id="typePasswordX" className="form-control form-control-lg" />
-                                        
-                                    </div>
+            <Form
+                name="basic"
+                labelCol={{
+                    span: 8,
+                }}
+                wrapperCol={{
+                    span: 16,
+                }}
+                initialValues={{
+                    remember: true,
+                }}
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
+                autoComplete="off"
+            >
+                <Form.Item
+                    label="Username"
+                    name="username"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please input your username!',
+                        },
+                    ]}
+                >
+                    <Input />
+                </Form.Item>
 
-                                    <p className="small mb-2 pb-lg-2"><a className="text-black" href="#!">Forgot password?</a></p>
+                <Form.Item
+                    label="Password"
+                    name="password"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please input your password!',
+                        },
+                    ]}
+                >
+                    <Input.Password />
+                </Form.Item>
 
-                                    <Link to="/dashboard">
-                                        <button className="primary-button" >log in</button>
-                                    </Link>
-                                    {/* </form> */}
-                                </div>
-                                <div>
-                                    <p className="mb-0 mr-1 pb-2">Don't have an account?</p>
-                                    {/* <Link to="/register"> */}
-                                    <Button type="primary" onClick={showModal}>
-                                        Register
-                                    </Button>
-                                    {/* </Link> */}
-                                </div>
+                <Form.Item
+                    name="remember"
+                    valuePropName="checked"
+                    wrapperCol={{
+                        offset: 8,
+                        span: 16,
+                    }}
+                >
+                    <Checkbox>Remember me</Checkbox>
+                </Form.Item>
 
-                            </form>
-                            {/* </div> */}
-                        </div>
-                    </div>
-                </div>
-            </section>
+                <Form.Item
+                    wrapperCol={{
+                        offset: 8,
+                        span: 16,
+                    }}
+                >
+                    <Button type="primary" htmlType="submit">
+                        Submit
+                    </Button>
+                </Form.Item>
+            </Form>
+            <div>
+                <p className="mb-0 mr-1 pb-2">Don't have an account?</p>
+                <Button type="primary" onClick={showModal}>
+                    Register
+                </Button>
+            </div>
             <>
                 <Modal title="Basic Modal"
                     open={isModalOpen}
@@ -72,7 +128,7 @@ export default function LandingPage() {
                     <RegisterForm />
                 </Modal>
             </>
-        </div>
+        </div >
 
     )
 }

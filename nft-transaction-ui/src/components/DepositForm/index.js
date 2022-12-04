@@ -95,99 +95,12 @@ export default function DepositForm() {
                 <InputNumber />
             </Form.Item>
             <Form.Item
-                name="cell-number"
-                label="Cell Phone"
-                rules={[
-                    {
-                        type: 'number',
-                    },
-                ]}
-            >
-                <InputNumber />
-            </Form.Item>
-            <Form.Item
-                name="email"
-                label="E-mail"
-                rules={[
-                    {
-                        type: 'email',
-                        message: 'The input is not valid E-mail!',
-                    },
-                    {
-                        required: true,
-                        message: 'Please input your E-mail!',
-                    },
-                ]}
-            >
-                <Input />
-            </Form.Item>
-            <Form.Item
-                label="Password"
-                name="password"
-                rules={[
-                    {
-                        required: true,
-                        message: 'Please input your password!',
-                    },
-                ]}
-            >
-                <Input.Password />
-            </Form.Item>
-            <Form.Item
                 label="Ethereum Address"
                 name="ethereum-address"
                 rules={[
                     {
                         required: true,
                         message: 'Please input your ethereum address!',
-                    },
-                ]}
-            >
-                <Input />
-            </Form.Item>
-            <Form.Item
-                label="Level"
-                name="level"
-                rules={[
-                    {
-                        required: true,
-                        message: 'Please input your level!',
-                    },
-                ]}
-            >
-                <Input />
-            </Form.Item>
-            <Form.Item
-                label="Ethereum Balance"
-                name="ethereum-balance"
-                rules={[
-                    {
-                        required: true,
-                        message: 'Please input your ethereum balance!',
-                    },
-                ]}
-            >
-                <Input />
-            </Form.Item>
-            <Form.Item
-                label="Fiat Balance"
-                name="fiat-balance"
-                rules={[
-                    {
-                        required: true,
-                        message: 'Please input your fiat balance!',
-                    },
-                ]}
-            >
-                <Input />
-            </Form.Item>
-            <Form.Item
-                label="Type"
-                name="type"
-                rules={[
-                    {
-                        required: true,
-                        message: 'Please input your type!',
                     },
                 ]}
             >
