@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,10 +33,27 @@ public class NFTController {
 	@Autowired
 	UserService userService;
 	
+	
+	
 	@GetMapping("/nfts")
 	public ResponseEntity<List<NFT>> get() {
 		List<NFT> nfts = nftService.findAll();
 		return new ResponseEntity<List<NFT>>(nfts, HttpStatus.OK);
+	}
+
+	@GetMapping("/nfts/market")
+	public ResponseEntity<List<NFT>> getNftsInMarket(){
+		List<NFT> nfts=get().getBody();
+		// System.out.println(nfts+"hiowefkdsf");
+		List<NFT> lis=new ArrayList<NFT>();
+		for(NFT i:nfts)
+			if(i.isWants_to_sell())
+				lis.add(i);
+		// System.out.println(nfts.get(0)+"fids");
+		if(lis==null || lis.size()==0)
+			return new ResponseEntity("No NFTs Found", HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<List<NFT>>(nfts, HttpStatus.OK);
+
 	}
 	
 	@PostMapping("/nft")
@@ -54,10 +72,13 @@ public class NFTController {
 	@GetMapping("/nft/sell/{nft_id}")
 	public ResponseEntity<NFT> ToggleSell(@PathVariable("nft_id") Long id){
 		NFT nft=get(id).getBody();
+		if(nft==null)
+			return new ResponseEntity("NFT Not Found!", HttpStatus.BAD_REQUEST);
 		nft.setWants_to_sell(!nft.isWants_to_sell());
 		nftService.save(nft);
 		return new ResponseEntity<NFT>(nft, HttpStatus.OK);
 	}
+	
 	
 	
 	@PutMapping("/user/{user_id}/nft/{nft_id}")
