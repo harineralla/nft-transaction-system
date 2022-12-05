@@ -4,6 +4,7 @@ import { Button, Checkbox, Form, Input, InputNumber } from 'antd';
 import { saveDepositDetails } from '../../redux/actions';
 import moment from 'moment-timezone';
 
+import "./index.css";
 
 export default function DepositForm({ userdetails }) {
 
