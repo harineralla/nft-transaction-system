@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Input, Checkbox, Button, Layout } from "antd";
 import Link from "antd/es/typography/Link";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { validateUserLogin } from "../redux/actions";
+import { getUserDetails } from "../redux/actions";
 
 import "../styles/landingPage.css";
 import { useNavigate } from "react-router-dom";
@@ -13,34 +13,24 @@ const { Footer } = Layout;
 export default function LoginPage() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [isUser, checkUserCreds] = useState(false);
+
+    const userDetails = useSelector(({ nftAppReducer }) => nftAppReducer.userReducer.user);
+
+    useEffect(()=>{
+        if (!userDetails) {
+            alert("Login credentials are wrong. Please check!");
+        } else {
+            navigate("/dashboard");
+        }
+    }, [userDetails]);
 
     const onFinish = (e) => {
-        console.log("on finish", e);
-        navigate("/dashboard")
-        // if (dispatch(validateUserLogin())) {
-        //     checkUserCreds(true)
-        // } else {
-        //     return (
-        //     <>{
-        //             !isUser?
-        //                 <>
-        //                     <Alert
-        //                         message="Error"
-        //                         description="Login Credentials are wrong"
-        //                         type="error"
-        //                         showIcon
-        //                     />
-        //                 </> :
-        //                 <></>
-        //         }</>
-        //     )
-        // }
-
+        dispatch(getUserDetails({ "email": e.email, "password": e.password }));
     }
     const onFinishFailed = () => {
-        console.log("on finish failed")
+        alert("Login Failed!!");
     }
+
     return (
         <div>
             <Form
@@ -59,12 +49,12 @@ export default function LoginPage() {
                 autoComplete="off"
             >
                 <Form.Item
-                    label="Username"
-                    name="username"
+                    label="Email"
+                    name="email"
                     rules={[
                         {
                             required: true,
-                            message: 'Please input your username!',
+                            message: 'Please input your email address!',
                         },
                     ]}
                 >

@@ -2,29 +2,21 @@ import { React, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Button, Checkbox, Form, Input, InputNumber } from 'antd';
 import { saveDepositDetails } from '../../redux/actions';
+import moment from 'moment-timezone';
 
 
-export default function DepositForm() {
+export default function DepositForm({ userdetails }) {
 
     const dispatch = useDispatch();
 
     const onFinish = (details) => {
-        var userdetails = {
-            "fiat_amt": details["fiat-amount"],
-            "user": {
-                "user_id": details["user-id"],
-                "name": details["name"],
-                "ph_no": details["phone-number"],
-                "cell_no": details["cell-number"],
-                "email": details["email"],
-                "password": details["password"],
-                "eth_address": details["ethereum-address"],
-                "level": details["level"],
-                "eth_balance": details["ethereum-balance"],
-                "fiat_balance": details["fiat-balance"]
-            },
-            "type": details["type"],
-            "payment_address": details["payment-address"]
+        var depositdetails = {
+            "user_id": userdetails["user_id"],
+            "date_of_payment": moment().format('MMMM Do YYYY, h:mm:ss a'),
+            "eth_amt": details["eth_amt"],
+            "fiat_amt": details["fiat_amt"],
+            "payment_address": details["payment_address"],
+            // "type": details["type"]
         };
         dispatch(saveDepositDetails(userdetails));
     }
@@ -56,6 +48,7 @@ export default function DepositForm() {
                         message: 'Please input your fiat amount!',
                     },
                 ]}
+                initialValue={userdetails["fiat_balance"]}
             >
                 <Input />
             </Form.Item>
@@ -69,6 +62,7 @@ export default function DepositForm() {
                         message: 'Please input your last name!',
                     },
                 ]}
+                initialValue={userdetails["user_id"]}
             >
                 <Input />
             </Form.Item>
@@ -80,6 +74,7 @@ export default function DepositForm() {
                         type: 'number',
                     },
                 ]}
+                initialValue={userdetails["name"]}
             >
                 <InputNumber />
             </Form.Item>
@@ -91,6 +86,7 @@ export default function DepositForm() {
                         type: 'number',
                     },
                 ]}
+                initialValue={userdetails["ph_no"]}
             >
                 <InputNumber />
             </Form.Item>
@@ -125,7 +121,7 @@ export default function DepositForm() {
                 }}
             >
                 <Button type="primary" htmlType="submit">
-                    Register
+                    Deposit
                 </Button>
             </Form.Item>
         </Form>

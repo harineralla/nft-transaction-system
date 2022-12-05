@@ -4,22 +4,30 @@ import { Modal, Button } from 'antd';
 import DepositForm from '../DepositForm';
 import SellPanel from './SellPanel';
 import ResponsiveAppBar from '../navBar';
-import "./index.css";
-import { useSelect } from '@mui/base';
 import { useSelector } from 'react-redux';
+import "./index.css";
 
 export default function DashboardPage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    // const userNFTData = useSelector(({rootReducer}))
+    const userDetails = useSelector(({ nftAppReducer }) => nftAppReducer.userReducer.user);
+
     const showModal = () => {
         setIsModalOpen(true);
     };
+
     const handleCancel = () => {
         setIsModalOpen(false);
     };
+
     return (
         <div>
+            <Button  onClick={showModal}>
+                Deposit eth
+            </Button>
+            <Link to="/">
+                <Button type="primary">Log out</Button>
+            </Link>
             <ResponsiveAppBar />
             <SellPanel />
             <Modal
@@ -29,14 +37,8 @@ export default function DashboardPage() {
                 onCancel={handleCancel}
                 footer={null}
             >
-                <DepositForm />
+                <DepositForm userdetails={userDetails}/>
             </Modal>
-            <Button type="primary" onClick={showModal}>
-                Deposit eth
-            </Button>
-            <Link to="/">
-                <button className="primary-button">Log out</button>
-            </Link>
         </div>
     )
 }

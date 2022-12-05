@@ -1,33 +1,21 @@
-import { React, useState } from 'react';
-import { Card, Col, Row, Button, Modal, Form, Input } from 'antd';
+import { React, useEffect, useState } from 'react';
+import { Card, Col, Row, Button, Modal, Form, Input, List } from 'antd';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 const { Meta } = Card;
 
 export default function SellPanel() {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const navigate = useNavigate();
-    const data = [
-        {
-            title: 'NFT 1',
-        },
-        {
-            title: 'NFT 2',
-        },
-        {
-            title: 'NFT 3',
-        },
-        {
-            title: 'NFT 4',
-        },
-        {
-            title: 'NFT 5',
-        },
-        {
-            title: 'NFT 6',
-        },
-    ];
+
+    const nftData = useSelector(({ nftAppReducer }) => nftAppReducer.userReducer.usernfts);
+
+    useEffect(() => {
+        console.log(nftData)
+    }, [nftData]);
+
     const onFinish = () => {
         console.log("on finish successfull")
         navigate("/market-place")
@@ -41,87 +29,42 @@ export default function SellPanel() {
     const handleCancel = () => {
         setIsModalOpen(false);
     };
+    const handleBuyNFT = (nft_item) => {
+        console.log(nft_item)
+    }
+
     return (
 
         <div style={{
             height: 500,
         }}>
-            <InfiniteScroll
-                dataLength={10}
-                hasMore={10 < 50}>
-                <Row gutter={8}>
-                    <Col span={6}>
+            <List
+                grid={{
+                    gutter: 16,
+                    column: 4,
+                }}
+                dataSource={nftData}
+                renderItem={(item) => (
+                    <List.Item>
+                        {/* <Card title={item.title}>Card content</Card> */}
                         <Card
+                            title={item.name}
                             hoverable
                             style={{
                                 width: 200,
                             }}
-                            title={"NFT-1"}
                             cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
                         >
                             <Button type="primary" htmlType="submit" onClick={showModal}>
                                 Sell NFT
                             </Button>
-                        </Card>
-                    </Col>
-                    <Col span={6}>
-                        <Card
-                            hoverable
-                            style={{
-                                width: 200,
-                            }}
-                            title={"NFT-1"}
-                            cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-                        >
-                            <Button type="primary" htmlType="submit" onClick={showModal}>
-                                Sell NFT
+                            <Button onClick={handleBuyNFT(item)}>
+                                Add to Cart
                             </Button>
                         </Card>
-                    </Col>
-                    <Col span={6}>
-                        <Card
-                            hoverable
-                            style={{
-                                width: 200,
-                            }}
-                            title={"NFT-1"}
-                            cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-                        >
-                            <Button type="primary" htmlType="submit" onClick={showModal}>
-                                Sell NFT
-                            </Button>
-                        </Card>
-                    </Col>
-                    <Col span={6}>
-                        <Card
-                            hoverable
-                            style={{
-                                width: 200,
-                            }}
-                            title={"NFT-1"}
-                            cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-                        >
-                            <Button type="primary" htmlType="submit" onClick={showModal}>
-                                Sell NFT
-                            </Button>
-                        </Card>
-                    </Col>
-                    <Col span={6}>
-                        <Card
-                            hoverable
-                            style={{
-                                width: 200,
-                            }}
-                            title={"NFT-1"}
-                            cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-                        >
-                            <Button type="primary" htmlType="submit" onClick={showModal}>
-                                Sell NFT
-                            </Button>
-                        </Card>
-                    </Col>
-                </Row>
-            </InfiniteScroll>
+                    </List.Item>
+                )}
+            />
             <>
                 <Modal title="Basic Modal"
                     open={isModalOpen}
