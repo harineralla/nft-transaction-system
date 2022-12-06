@@ -28,7 +28,6 @@ function MarketPlace() {
             dataSource={marketNFTS}
             renderItem={(item) => (
                 <List.Item>
-                    {/* <Card title={item.title}>Card content</Card> */}
                     <Card
                         title={item.name}
                         hoverable
@@ -39,7 +38,7 @@ function MarketPlace() {
                     >
                         <p>${item.price}.00 Eth</p>
                         <Button type="primary" htmlType="submit" onClick={showModal}>
-                            Sell NFT
+                            Buy NFT
                         </Button>
                     </Card>
                 </List.Item>
