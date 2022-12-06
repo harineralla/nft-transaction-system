@@ -17,10 +17,16 @@ import AdbIcon from '@mui/material/Avatar';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import logo from '../navBar/logo_1.jpg';
 import { GlobalStyles } from '@mui/styled-engine';
 import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { Add, Savings } from '@mui/icons-material';
+import { Modal } from 'antd';
+import DepositForm from '../DepositForm/index';
+import { useSelector } from 'react-redux';
 
-const pages = ['Account', 'Dashboard', 'Market', 'Owned Products', 'Wallet', 'Cart'];
+const pages = [/*'Account'*/, 'Dashboard', 'Market', 'Owned Products', 'Wallet', 'Cart'];
 const settings = ['Profile', 'Logout'];
 
 const Search = styled('div')(({ theme }) => ({
@@ -65,11 +71,39 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
+const btnSx = {
+    my: 2,
+    color: 'white',
+    display: 'block',
+    pl: 4,
+    pr: 4,
+    "&:hover": {
+        borderColor: 'black',
+        backgroundColor: '#C5A9DC',
+        opacity: 0.5,
+    },
+};
+
+const theme = {
+    spacing: 8,
+}
+
 function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
 
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const navigate = useNavigate();
+    const [isModalOpen, setIsModalOpen] = React.useState(false);
+    const userDetails = useSelector(({ nftAppReducer }) => nftAppReducer.userReducer.userInfo);
+    const navigate = useNavigate();
+
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
@@ -84,9 +118,31 @@ function ResponsiveAppBar() {
 
     };
 
+
+
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+
+    const navlogin = () => {
+        navigate("/")
+    }
+
+    const navdashboard = () => {
+        navigate("/dashboard")
+    }
+    const navmarket = () => {
+        navigate("/market-place")
+    }
+    const navmanager = () => {
+        navigate("/manager")
+    }
+    const navhistory = () => {
+        navigate("/history")
+    }
+    const navprofile = () => {
+        navigate("/profile")
+    }
     const appBarStyles = styled('div')(({ theme }) => ({
         backgroundColor: '#200636 !important',
     }));
@@ -94,9 +150,10 @@ function ResponsiveAppBar() {
     return (
         <appBarStyles>
             <AppBar position="static" className='header-bg'>
-                <Container maxWidth="xl">
-                    <Toolbar disableGutters>
-                        <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+                <Container maxWidth="xl" sx={{ pb: 1, pt: 1 }}>
+                    <Toolbar disableGutters >
+                        <img width={90} height={90} src={logo} alt='LOGO' />
+                        {/*<AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
                         <Typography
                             variant="h6"
                             noWrap
@@ -113,7 +170,7 @@ function ResponsiveAppBar() {
                             }}
                         >
                             LOGO
-                        </Typography>
+                        </Typography>*/}
 
                         <Search>
                             <SearchIconWrapper>
@@ -147,11 +204,15 @@ function ResponsiveAppBar() {
                                     <GlobalStyles styles={{ marginRight: '30px' }} />
 
 
-                                    {pages.map((page) => (
+                                    {/*{pages.map((page) => (
                                         <MenuItem key={page} onClick={handleCloseNavMenu}>
                                             <Typography textAlign="center">{page}</Typography>
                                         </MenuItem>
-                                    ))}
+                                    ))}*/}
+                                    <MenuItem onClick={navdashboard}>Dashboard</MenuItem>
+                                    <MenuItem onClick={navmarket}>Market</MenuItem>
+                                    <MenuItem onClick={navmanager}>Manager</MenuItem>
+                                    <MenuItem onClick={navhistory}>History</MenuItem>
                                 </React.Fragment>
                             </Menu>
                         </Box>
@@ -175,30 +236,60 @@ function ResponsiveAppBar() {
                             LOGO
                         </Typography>
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                            {pages.map((page) => (
+                            {/*{pages.map((page) => (
                                 <Button
-                                    key={page}
-                                    onClick={handleCloseNavMenu}
-                                    sx={{ my: 2, color: 'white', display: 'block' }}
+                                key={page}
+                                onClick={handleCloseNavMenu}
+                                sx={btnSx}
+                                variant="outlined"
                                 >
                                     {page}
                                 </Button>
-                            ))}
+                            ))}*/}
+                            <Button
+                                onClick={navdashboard}
+                                sx={btnSx}
+                                variant="outlined"
+                            >
+                                Dashboard
+                            </Button>
+                            <Button
+                                onClick={navmarket}
+                                sx={btnSx}
+                                variant="outlined"
+                            >
+                                Market
+                            </Button>
+                            <Button
+                                onClick={navmanager}
+                                sx={btnSx}
+                                variant="outlined"
+                            >
+                                Manager
+                            </Button>
+                            <Button
+                                onClick={navhistory}
+                                sx={btnSx}
+                                variant="outlined"
+                            >
+                                History
+                            </Button>
                         </Box>
 
                         <Box sx={{ flexGrow: 0 }}>
-                            <Tooltip title="NFT cart">
-                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 5 }}>
-                                    <ShoppingCartIcon />
+                            <Tooltip title="Deposit">
+                                <IconButton onClick={showModal} sx={{ p: 0, pr: 2 }}>
+                                    <Savings sx={{ fontSize: "40px" }} />
                                 </IconButton>
+
                             </Tooltip>
                             <Tooltip title="Open settings">
-                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                    <AccountCircle />
+                                <IconButton size='large' onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                    <AccountCircle sx={{ fontSize: "80px" }} />
                                 </IconButton>
                             </Tooltip>
                             <Menu
-                                sx={{ mt: '45px' }}
+                                sx={{ mt: '45px', ml: '0' }}
                                 id="menu-appbar"
                                 anchorEl={anchorElUser}
                                 anchorOrigin={{
@@ -213,14 +304,27 @@ function ResponsiveAppBar() {
                                 open={Boolean(anchorElUser)}
                                 onClose={handleCloseUserMenu}
                             >
-                                {settings.map((setting) => (
+                                {/*{settings.map((setting) => (
                                     <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                        <Typography textAlign="center">{setting}</Typography>
-                                    </MenuItem>
-                                ))}
+                                        <Typography onClick={navlogin} textAlign="center">{setting}</Typography>
+                                </MenuItem>
+
+                                ))}*/}
+                                <MenuItem onClick={navprofile}>Profile</MenuItem>
+                                <MenuItem onClick={navlogin}>Logout</MenuItem>
                             </Menu>
                         </Box>
+                        <Modal
+                            title="Enter below details"
+                            open={isModalOpen}
+                            // onOk={handleOk} 
+                            onCancel={handleCancel}
+                            footer={null}
+                        >
+                            <DepositForm userdetails={userDetails} />
+                        </Modal>
                     </Toolbar>
+
                 </Container>
             </ AppBar>
         </appBarStyles>

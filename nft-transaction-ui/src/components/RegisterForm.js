@@ -1,12 +1,11 @@
 import React from 'react';
 import { Button, Checkbox, Form, Input, InputNumber } from 'antd';
 
-import { saveUserDetails } from '../redux/actions';
+import { saveUserDetails, closeRegisterModal } from '../redux/actions';
 
 import "../styles/landingPage.css";
 import { useDispatch } from 'react-redux';
 
-const BASE_URL = "http://localhost:8080/v1";
 
 export default function RegisterForm() {
     const dispatch = useDispatch();
@@ -30,8 +29,9 @@ export default function RegisterForm() {
                 "state": details["state"],
                 "zip_code": details["zipcode"]
             }
-        };
-        dispatch(saveUserDetails(userdetails))
+        }
+        dispatch(saveUserDetails(userdetails));
+        dispatch(closeRegisterModal(true));
     }
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -161,50 +161,6 @@ export default function RegisterForm() {
             >
                 <Input />
             </Form.Item>
-            {/* <Form.Item
-                name="level"
-                label="Level"
-                rules={[
-                    {
-                        type: 'number',
-                    },
-                ]}
-            >
-                <InputNumber />
-            </Form.Item> */}
-            {/* <Form.Item
-                name="eth-balance"
-                label="Ethereum Balance"
-                rules={[
-                    {
-                        type: 'number',
-                    },
-                ]}
-            >
-                <InputNumber />
-            </Form.Item>
-            <Form.Item
-                name="fiat-balance"
-                label="Fiat Balance"
-                rules={[
-                    {
-                        type: 'number',
-                    },
-                ]}
-            >
-                <InputNumber />
-            </Form.Item> */}
-            {/* <Form.Item
-                name="remember"
-                valuePropName="checked"
-                wrapperCol={{
-                    offset: 8,
-                    span: 16,
-                }}
-            >
-                <Checkbox>Remember me</Checkbox>
-            </Form.Item> */}
-
             <Form.Item
                 label="Street Address"
                 name="street-address"

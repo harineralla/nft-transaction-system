@@ -3,18 +3,23 @@ import { Card, Col, Row, Button, Modal, Form, Input, List } from 'antd';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import nft from "../DashboardPage/nft_1.jpg";
+import "../DashboardPage/index.css"
 const { Meta } = Card;
 
-export default function SellPanel() {
+export default function SellPanel({ userNfts }) {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
+    // const [userData, getUserData] = useState([]);
+    // const [usernfts, getUserNfts] = useState([]);
     const navigate = useNavigate();
 
-    const nftData = useSelector(({ nftAppReducer }) => nftAppReducer.userReducer.usernfts);
-
     useEffect(() => {
-        console.log(nftData)
-    }, [nftData]);
+        // var data = JSON.parse(window.localStorage.getItem('USER_DETAILS'));
+        // var userNFTs = JSON.parse(window.localStorage.getItem('USER_NFTS'));
+        // getUserData([data]);
+        // getUserNfts(userNFTs);
+    }, []);
 
     const onFinish = () => {
         console.log("on finish successfull")
@@ -30,20 +35,24 @@ export default function SellPanel() {
         setIsModalOpen(false);
     };
     const handleBuyNFT = (nft_item) => {
-        console.log(nft_item)
+
+    }
+    const handleSellNFT = (nft_item) => {
+        // console.log(nft_item)
     }
 
     return (
 
-        <div style={{
+        <div className='right-div align' style={{
             height: 500,
         }}>
-            <List
+            
+            <List className='c1'
                 grid={{
                     gutter: 16,
                     column: 4,
                 }}
-                dataSource={nftData}
+                dataSource={userNfts}
                 renderItem={(item) => (
                     <List.Item>
                         {/* <Card title={item.title}>Card content</Card> */}
@@ -53,20 +62,18 @@ export default function SellPanel() {
                             style={{
                                 width: 200,
                             }}
-                            cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
+                            cover={<img alt="example" src={nft} />}
                         >
+                            <p>${item.price}.00 Eth</p>
                             <Button type="primary" htmlType="submit" onClick={showModal}>
                                 Sell NFT
-                            </Button>
-                            <Button onClick={handleBuyNFT(item)}>
-                                Add to Cart
                             </Button>
                         </Card>
                     </List.Item>
                 )}
             />
             <>
-                <Modal title="Basic Modal"
+                <Modal title="Sell NFT"
                     open={isModalOpen}
                     // onOk={handleOk} 
                     onCancel={handleCancel}
@@ -88,12 +95,12 @@ export default function SellPanel() {
                         autoComplete="off"
                     >
                         <Form.Item
-                            label="Username"
-                            name="username"
+                            label="Smart Contract Address"
+                            name="smart-contract-address"
                             rules={[
                                 {
                                     required: true,
-                                    message: 'Please input your username!',
+                                    message: 'Please input your Contract Address!',
                                 },
                             ]}
                         >
@@ -101,12 +108,12 @@ export default function SellPanel() {
                         </Form.Item>
 
                         <Form.Item
-                            label="Password"
-                            name="password"
+                            label="Token"
+                            name="token"
                             rules={[
                                 {
                                     required: true,
-                                    message: 'Please input your password!',
+                                    message: 'Please input your Token!',
                                 },
                             ]}
                         >
@@ -118,8 +125,8 @@ export default function SellPanel() {
                                 span: 16,
                             }}
                         >
-                            <Button type="primary" htmlType="submit">
-                                Submit
+                            <Button type="primary" htmlType="submit" onClick={handleSellNFT}>
+                                Sell
                             </Button>
                         </Form.Item>
                     </Form>

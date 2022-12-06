@@ -1,50 +1,46 @@
-import { POST_USER_DETAILS, GET_USER_NFT_DETAILS, POST_DEPOSIT_DETAILS, GET_USER_DETAILS } from "../actions/types";
+import {
+    POST_USER_DETAILS,
+    GET_USER_NFT_DETAILS, 
+    POST_DEPOSIT_DETAILS, 
+    GET_USER_DETAILS, 
+    GET_USER_TRANSACTION, 
+    USER_LOGIN_ERROR, 
+    MANAGER_DATE_RANGES,
+    CLOSE_REGISTER_MODAL
+} from "../actions/types";
 
 const initialState = {
-    usernfts: [
-        {
-            "nft_id": "121324",
-            "eth_address": "432747236",
-            "name": "Tom And Jerry",
-            "price": 2353,
-            "wants_to_sell": 0,
-            "user_id": 132132
-        },
-        {
-            "nft_id": "121324",
-            "eth_address": "432747236",
-            "name": "Tom And Jerry",
-            "price": 2353,
-            "wants_to_sell": 0,
-            "user_id": 132132
-        },
-        {
-            "nft_id": "121324",
-            "eth_address": "432747236",
-            "name": "Tom And Jerry",
-            "price": 2353,
-            "wants_to_sell": 0,
-            "user_id": 132132
-        },
-        {
-            "nft_id": "121324",
-            "eth_address": "432747236",
-            "name": "Tom And Jerry",
-            "price": 2353,
-            "wants_to_sell": 0,
-            "user_id": 132132
-        }
-    ],
-    user: {},
-    depositDetails: {}
+    usernfts: [],
+    userInfo: {},
+    userDetails: {
+        user: {},
+        address: {}
+    },
+    depositDetails: {},
+    history: [],
+    userLoginError: "",
+    rangeHistory: [],
+    closeRegisterModal: false
 }
 
 const userReducer = (state = initialState, action) => {
     switch (action.type) {
+        case CLOSE_REGISTER_MODAL: {
+            return {
+                ...state,
+                closeRegisterModal: action.payload
+            }
+        }
         case GET_USER_DETAILS: {
             return {
                 ...state,
-                user: action.payload
+                userInfo: action.payload
+            }
+        }
+        case USER_LOGIN_ERROR: {
+            return {
+                ...state,
+                userLoginError: action.payload
             }
         }
         case GET_USER_NFT_DETAILS: {
@@ -56,13 +52,28 @@ const userReducer = (state = initialState, action) => {
         case POST_USER_DETAILS: {
             return {
                 ...state,
-                user: action.payload.user
+                userDetails: {
+                    user: action.payload.user,
+                    address: action.payload.address
+                }
             }
         }
         case POST_DEPOSIT_DETAILS: {
             return {
                 ...state,
                 depositDetails: action.payload
+            }
+        }
+        case GET_USER_TRANSACTION: {
+            return {
+                ...state,
+                history: action.payload
+            }
+        }
+        case MANAGER_DATE_RANGES: {
+            return {
+                ...state,
+                rangeHistory: action.payload
             }
         }
         default: return state;
