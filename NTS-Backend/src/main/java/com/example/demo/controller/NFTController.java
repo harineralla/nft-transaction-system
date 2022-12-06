@@ -52,7 +52,7 @@ public class NFTController {
 		// System.out.println(nfts.get(0)+"fids");
 		if(lis==null || lis.size()==0)
 			return new ResponseEntity("No NFTs Found", HttpStatus.BAD_REQUEST);
-		return new ResponseEntity<List<NFT>>(nfts, HttpStatus.OK);
+		return new ResponseEntity<List<NFT>>(lis, HttpStatus.OK);
 
 	}
 	
