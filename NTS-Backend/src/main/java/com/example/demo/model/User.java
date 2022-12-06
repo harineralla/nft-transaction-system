@@ -22,20 +22,20 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name="tbl_user")
 public class User {
 	
-	@Override
-	public String toString() {
-		return "User [user_id=" + user_id + ", name=" + name + ", ph_no=" + ph_no + ", cell_no=" + cell_no + ", email="
-				+ email + ", password=" + password + ", address=" + address + ", eth_address=" + ethAddress
-				+ ", level=" + level + ", eth_balance=" + eth_balance + ", fiat_balance=" + fiat_balance + ", nfts="
-				+ nfts + ", deposits=" + deposits + "]";
-	}
+	// @Override
+	// public String toString() {
+	// 	return "User [user_id=" + user_id + ", name=" + name + ", ph_no=" + ph_no + ", cell_no=" + cell_no + ", email="
+	// 			+ email + ", password=" + password + ", address=" + address + ", eth_address=" + ethAddress
+	// 			+ ", level=" + level + ", eth_balance=" + eth_balance + ", fiat_balance=" + fiat_balance + ", nfts="
+	// 			+ nfts + ", deposits=" + deposits + "]";
+	// }
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long user_id ;
 	// first Name + last Name
 	private String name;
-	private int ph_no;
-	private int cell_no;
+	private String ph_no;
+	private String cell_no;
 	//make this unique
 	@Column(unique=true)
 	private String email;
@@ -80,18 +80,7 @@ public class User {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getPh_no() {
-		return ph_no;
-	}
-	public void setPh_no(int ph_no) {
-		this.ph_no = ph_no;
-	}
-	public int getCell_no() {
-		return cell_no;
-	}
-	public void setCell_no(int cell_no) {
-		this.cell_no = cell_no;
-	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -149,18 +138,25 @@ public class User {
 	public void setDeposits(List<Deposit> deposits) {
 		this.deposits = deposits;
 	}
-	// public List<Transaction> getBuy_Transactions() {
-	// 	return buy_Transactions;
-	// }
-	// public void setBuy_Transactions(List<Transaction> buy_Transactions) {
-	// 	this.buy_Transactions = buy_Transactions;
-	// }
-	// public List<Transaction> getSell_Transactions() {
-	// 	return sell_Transactions;
-	// }
-	// public void setSell_Transactions(List<Transaction> sell_Transactions) {
-	// 	this.sell_Transactions = sell_Transactions;
-	// }
+	public String getPh_no() {
+		return ph_no;
+	}
+	public void setPh_no(String ph_no) {
+		this.ph_no = ph_no;
+	}
+	public String getCell_no() {
+		return cell_no;
+	}
+	public void setCell_no(String cell_no) {
+		this.cell_no = cell_no;
+	}
+	public String getEthAddress() {
+		return ethAddress;
+	}
+	public void setEthAddress(String ethAddress) {
+		this.ethAddress = ethAddress;
+	}
+
 
 
 }

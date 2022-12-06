@@ -43,6 +43,7 @@ public class TransactionServiceImpl implements TransactionService{
 		// User user = userService.findById(deposit.getUser().getUser_id());
 		System.out.println("dshf "+transaction.toString());
 		NFT nft = nftService.findById(transaction.getNft().getNft_id());
+		// NFT nft = nftService
 		// System.out.println("nft sad "+nft.getNft_id());
 		BigDecimal commission = buyer.isLevel()?gold_membership_commission:silver_membership_commission;
 		BigDecimal total_eth_commission = nft.getPrice().multiply(commission);
@@ -68,7 +69,7 @@ public class TransactionServiceImpl implements TransactionService{
 		transaction.setCurrent_eth_price(eth_price);
 		// buyer.getBuy_Transactions().add(transaction);
 		// seller.getSell_Transactions().add(transaction);
-		nft.getTransactions().add(transaction);
+		// nft.getTransactions().add(transaction);
 		transactionRepository.save(transaction);
 		return transaction;
 	}
@@ -85,6 +86,30 @@ public class TransactionServiceImpl implements TransactionService{
 	public void delete(Long id) {
 		Transaction transaction = findById(id);
 		transactionRepository.delete(transaction);
+	}
+
+	@Override
+	public Transaction cancel(Long id) {
+		Transaction transaction = findById(id);
+
+		//find buyer and seller
+		String buyer_eth_address = transaction.getBuyer_eth_address();
+		String seller_eth_address = transaction.getSeller_eth_address();
+		User buyer = userService.findByETHAddresUser(buyer_eth_address);
+		User seller = userService.findByETHAddresUser(seller_eth_address);
+
+		// find nft
+		NFT nft = nftService.findById(transaction.getNft().getNft_id());
+		BigDecimal nft_price_in_eth = nft.getPrice();
+
+		buyer.setEth_balance(buyer.getEth_balance().add(nft_price_in_eth));
+		seller.setEth_balance(seller.getEth_balance().subtract(nft_price_in_eth));
+		nft.setUser(seller);
+		seller.getNfts().add(nft);
+		buyer.getNfts().remove(nft);
+		
+		transactionRepository.save(transaction);
+		return transaction;
 	}
     
 }

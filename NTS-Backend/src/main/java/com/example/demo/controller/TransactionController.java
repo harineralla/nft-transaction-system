@@ -55,4 +55,11 @@ public class TransactionController {
 		transactionService.delete(id);
 		return new ResponseEntity<String>("transaction is deleted successfully.!", HttpStatus.OK);
 	}
+
+	@GetMapping("/cancel/transaction/{id}")
+	public ResponseEntity<Transaction> cancelTransaction(@PathVariable("id") Long id){
+		Transaction transaction = transactionService.cancel(id);
+		return new ResponseEntity<Transaction>(transaction,HttpStatus.OK);
+	}
+
 }
