@@ -1,18 +1,25 @@
 import React, { useEffect, useState } from "react";
 
-import { Card, Col, Row, Button, Modal, Form, Input, List } from 'antd';
+import { Card, Col, Row, Button, Modal, Form, Input, List, Select } from 'antd';
 import { getMarketNFTs } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
+import { saveTransactionDetails } from "../../redux/actions";
+
 
 function MarketPlace() {
 
     const dispatch = useDispatch();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [buyNFT_id, setBuyID] = useState(0);
+    const [userDetails, getUserData] = useState({});
 
     const marketNFTS = useSelector(({ nftAppReducer }) => nftAppReducer.userReducer.marketNFTS);
 
+    const savedTransactionDetails = useSelector(({ nftAppReducer }) => nftAppReducer.userReducer.saveTransactionDetails);
+
     useEffect(() => {
+        var data = JSON.parse(window.localStorage.getItem('USER_DETAILS'));
+        getUserData(data);
         dispatch(getMarketNFTs());
     })
 
@@ -25,8 +32,21 @@ function MarketPlace() {
         setBuyID(nft_id)
     };
 
-    const handleBuyNFT = () => {
+    const handleBuyNFT = (details) => {
         // dispatch(postBuyTransaction(buyNFT_id));
+        var depositdetails = {
+            "nft": {
+                "nft_id": buyNFT_id
+            },
+            "buyer_eth_address": userDetails["eth_address"],
+            "commission_type": details["type"]
+        };
+        if (details["type"] === "fiat") {
+            depositdetails["commission_type"] = false;
+        } else if (details["type"] === "ethereum") {
+            depositdetails["commission_type"] = true;
+        }
+        dispatch(saveTransactionDetails(buyNFT_id));
     }
 
     return (
@@ -48,7 +68,7 @@ function MarketPlace() {
                             cover={<img alt="example" src={item.nft_id} />}
                         >
                             <p>${item.price}.00 Eth</p>
-                            <Button type="primary" htmlType="submit" onClick={showModal}>
+                            <Button type="primary" htmlType="submit" onClick={()=>showModal(item.nft_id)}>
                                 Buy NFT
                             </Button>
                         </Card>
@@ -76,6 +96,24 @@ function MarketPlace() {
                         // onFinishFailed={onFinishFailed}
                         autoComplete="off"
                     >
+                        
+                        
+                        <Form.Item
+                            label="Commission Type"
+                            name="type"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input your commission type!',
+                                },
+                            ]}
+                        >
+                            <Select>
+                                <Select.Option value="fiat">Fiat Currency</Select.Option>
+                                <Select.Option value="ethereum">Ethereum</Select.Option>
+                            </Select>
+                        </Form.Item>
+
                         <Form.Item
                             label="Smart Contract Address"
                             name="smart-contract-address"
@@ -89,7 +127,7 @@ function MarketPlace() {
                             <Input />
                         </Form.Item>
 
-                        <Form.Item
+                        {/* <Form.Item
                             label="Token"
                             name="token"
                             rules={[
@@ -99,8 +137,8 @@ function MarketPlace() {
                                 },
                             ]}
                         >
-                            <Input.Password />
-                        </Form.Item>
+                            <Input />
+                        </Form.Item> */}
                         <Form.Item
                             wrapperCol={{
                                 offset: 8,

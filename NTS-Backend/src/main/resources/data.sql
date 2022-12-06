@@ -6,7 +6,7 @@
     ( 'Boston', 'New York', '5462 North', 345546),
     ('Las Vegas' , 'Arizona','823 W',58522);
  
- insert into tbl_user (cell_no, email, eth_address, eth_balance, fiat_balance, level, name, password, ph_no, address_id) values
+ insert into tbl_user (cell_no, email, eth_address, eth_balance, fiat_balance, level,name, password, ph_no, address_id) values
     ("214540992", 'john@gmail.com', 'john_eth_address', 3238.3, 1132.22, 0, 'John Thomas', 'nkadudbwbjdw', "3232974423", 1),
     ("214540934", 'sam@gmail.com', 'sam_eth_address', 42342323.3, 134532.22, 1, 'Sam Jonas', 'wrkrejwkfbsi', "5633474423", 2),
     ("712532992", 'bob@gmail.com', 'bob_eth_address', 3435323.3, 122132.22, 1, 'Bob Alex', 'wkdhwihfkw', "5632974443", 3),
@@ -22,7 +22,7 @@ insert into tbl_deposit ( eth_amt, fiat_amt, payment_address, type, user_id) val
     (7838,3753, 'dgdfi', 'dgusfd', 5);
 
     insert into tbl_nft(nft_id, eth_address, name, price, wants_to_sell, user_id) values 
-    (1, 'hjfiswfwvj', 'Monalisa_painting', 23454, 1,  1),
+    (1, 'hjfiswfwvj', 'Monalisa_painting', 23454, 0,  1),
     (2, 'djqhfdiyqwd', 'Nature_painting', 32574, 1,  2),
     (3, 'dvaufdkou', 'Calender_Photos', 3472,0, 3),
     (4, 'gdkwqofw', 'Serenity_Album', 2435, 1, 4),

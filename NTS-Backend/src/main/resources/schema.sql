@@ -64,7 +64,7 @@ USE db_nts;
   `commission_paid` decimal(10,2) DEFAULT '0.00',
   `commission_type` tinyint(1) DEFAULT '1',
   `current_eth_price` decimal(19,2) NOT NULL,
-  `date` datetime(6) DEFAULT NULL,
+  `date` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `seller_eth_address` varchar(255) DEFAULT NULL,
   `value_in_eth` decimal(10,2) DEFAULT '0.00',
   `nft_id` bigint DEFAULT NULL,

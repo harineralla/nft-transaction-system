@@ -2,7 +2,7 @@ import { Password } from "@mui/icons-material";
 import axios from "axios";
 import {
     GET_USER_DETAILS, GET_USER_NFT_DETAILS, GET_USER_TRANSACTION, MANAGER_DATE_RANGES, POST_DEPOSIT_DETAILS,
-    POST_USER_DETAILS, USER_LOGIN_ERROR, CLOSE_REGISTER_MODAL, GET_MARKET_NFTS
+    POST_USER_DETAILS, USER_LOGIN_ERROR, CLOSE_REGISTER_MODAL, GET_MARKET_NFTS, POST_TRANSACTION_DETAILS
 } from "./types";
 
 
@@ -136,3 +136,33 @@ export const setSellNFTValue = (nft_id) => {
             })
     }
 }
+
+export const saveTransactionDetails = (data) => {
+    return dispatch => {
+        return axios
+            .post(`${BASE_URL}/transaction`, data)
+            .then(response => {
+                dispatch({
+                    type: POST_TRANSACTION_DETAILS,
+                    payload: response.data
+                })
+            })
+            .catch(e => {
+                console.log(e)
+            })
+    }
+}
+
+// export const getCurrentEthPrice = () => {
+//     return dispatch => {
+//         return axios
+//             .get(`https://api.coinbase.com/v2/prices/ETH-USD/spot`)
+//             .then(response => {
+//                 dispatch({
+//                     type: GET_CURRENT_ETH_PRICE,
+//                     payload: response.data
+//                 })
+//             })
+//     }
+// }
+
