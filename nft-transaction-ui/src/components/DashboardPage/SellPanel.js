@@ -67,66 +67,6 @@ export default function SellPanel({ userNfts }) {
                     </List.Item>
                 )}
             />
-            <>
-                <Modal title="Sell NFT"
-                    open={isModalOpen}
-                    // onOk={handleOk} 
-                    // onCancel={handleCancel}
-                    footer={null}
-                >
-                    <Form
-                        name="basic"
-                        labelCol={{
-                            span: 8,
-                        }}
-                        wrapperCol={{
-                            span: 16,
-                        }}
-                        initialValues={{
-                            remember: true,
-                        }}
-                        // onFinish={handleSellNFT}
-                        // onFinishFailed={onFinishFailed}
-                        autoComplete="off"
-                    >
-                        <Form.Item
-                            label="Smart Contract Address"
-                            name="smart-contract-address"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your Contract Address!',
-                                },
-                            ]}
-                        >
-                            <Input />
-                        </Form.Item>
-
-                        <Form.Item
-                            label="Token"
-                            name="token"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your Token!',
-                                },
-                            ]}
-                        >
-                            <Input.Password />
-                        </Form.Item>
-                        <Form.Item
-                            wrapperCol={{
-                                offset: 8,
-                                span: 16,
-                            }}
-                        >
-                            <Button type="primary" htmlType="submit" onClick={handleSellNFT}>
-                                Sell
-                            </Button>
-                        </Form.Item>
-                    </Form>
-                </Modal>
-            </>
         </div >
     )
 }
