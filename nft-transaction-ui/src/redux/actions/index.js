@@ -1,10 +1,20 @@
 import { Password } from "@mui/icons-material";
 import axios from "axios";
-import { GET_USER_DETAILS, GET_USER_NFT_DETAILS, GET_USER_TRANSACTION, MANAGER_DATE_RANGES, POST_DEPOSIT_DETAILS, POST_USER_DETAILS, USER_LOGIN_ERROR } from "./types";
+import { GET_USER_DETAILS, GET_USER_NFT_DETAILS, GET_USER_TRANSACTION, MANAGER_DATE_RANGES, POST_DEPOSIT_DETAILS, 
+    POST_USER_DETAILS, USER_LOGIN_ERROR, CLOSE_REGISTER_MODAL } from "./types";
 
 
 const BASE_URL = "http://localhost:8080/v1";
 
+
+export const closeRegisterModal=(boolValue)=>{
+    return dispatch=>{
+        dispatch({
+            type: CLOSE_REGISTER_MODAL,
+            payload: boolValue
+        })
+    }
+}
 export const getUserDetails = (data) => {
     return dispatch => {
         return axios

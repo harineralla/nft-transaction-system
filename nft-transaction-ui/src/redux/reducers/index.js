@@ -1,4 +1,13 @@
-import { POST_USER_DETAILS, GET_USER_NFT_DETAILS, POST_DEPOSIT_DETAILS, GET_USER_DETAILS, GET_USER_TRANSACTION, USER_LOGIN_ERROR, MANAGER_DATE_RANGES } from "../actions/types";
+import {
+    POST_USER_DETAILS,
+    GET_USER_NFT_DETAILS, 
+    POST_DEPOSIT_DETAILS, 
+    GET_USER_DETAILS, 
+    GET_USER_TRANSACTION, 
+    USER_LOGIN_ERROR, 
+    MANAGER_DATE_RANGES,
+    CLOSE_REGISTER_MODAL
+} from "../actions/types";
 
 const initialState = {
     usernfts: [],
@@ -10,11 +19,18 @@ const initialState = {
     depositDetails: {},
     history: [],
     userLoginError: "",
-    rangeHistory: []
+    rangeHistory: [],
+    closeRegisterModal: false
 }
 
 const userReducer = (state = initialState, action) => {
     switch (action.type) {
+        case CLOSE_REGISTER_MODAL: {
+            return {
+                ...state,
+                closeRegisterModal: action.payload
+            }
+        }
         case GET_USER_DETAILS: {
             return {
                 ...state,

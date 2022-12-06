@@ -19,9 +19,13 @@ export default function LandingPage({ history }) {
 
     const userDetails = useSelector(({ nftAppReducer }) => nftAppReducer.userReducer.userInfo);
     const userLoginError = useSelector(({ nftAppReducer }) => nftAppReducer.userReducer.userLoginError);
+    const closeModal = useSelector(({ nftAppReducer }) => nftAppReducer.userReducer.closeRegisterModal);
 
     useEffect(() => {
         checkLoginDetails();
+        if (closeModal) {
+            setIsModalOpen(false);
+        }
     }, [userDetails, userLoginError]);
 
     const checkLoginDetails = () => {
@@ -33,7 +37,6 @@ export default function LandingPage({ history }) {
         }
     }
     const onFinish = (e) => {
-        console.log(e)
         dispatch(getUserDetails({ "email": e.email, "password": e.password }));
     }
     const onFinishFailed = () => {
@@ -103,9 +106,9 @@ export default function LandingPage({ history }) {
             <div className="ms-sm-6">
                 <p className="mb-0 mr-1 pb-2 color">Don't have an account?</p>
                 <div className="ms-sm-5">
-                <Button type="primary" onClick={showModal}>
-                    Register
-                </Button>
+                    <Button type="primary" onClick={showModal}>
+                        Register
+                    </Button>
                 </div>
 
             </div>

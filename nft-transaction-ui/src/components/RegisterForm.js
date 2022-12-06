@@ -1,12 +1,11 @@
 import React from 'react';
 import { Button, Checkbox, Form, Input, InputNumber } from 'antd';
 
-import { saveUserDetails } from '../redux/actions';
+import { saveUserDetails, closeRegisterModal } from '../redux/actions';
 
 import "../styles/landingPage.css";
 import { useDispatch } from 'react-redux';
 
-const BASE_URL = "http://localhost:8080/v1";
 
 export default function RegisterForm() {
     const dispatch = useDispatch();
@@ -32,7 +31,7 @@ export default function RegisterForm() {
             }
         }
         dispatch(saveUserDetails(userdetails));
-
+        dispatch(closeRegisterModal(true));
     }
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);

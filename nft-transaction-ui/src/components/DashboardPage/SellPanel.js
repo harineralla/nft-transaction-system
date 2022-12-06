@@ -35,6 +35,9 @@ export default function SellPanel({ userNfts }) {
         setIsModalOpen(false);
     };
     const handleBuyNFT = (nft_item) => {
+
+    }
+    const handleSellNFT = (nft_item) => {
         // console.log(nft_item)
     }
 
@@ -70,7 +73,7 @@ export default function SellPanel({ userNfts }) {
                 )}
             />
             <>
-                <Modal title="Basic Modal"
+                <Modal title="Sell NFT"
                     open={isModalOpen}
                     // onOk={handleOk} 
                     onCancel={handleCancel}
@@ -92,12 +95,12 @@ export default function SellPanel({ userNfts }) {
                         autoComplete="off"
                     >
                         <Form.Item
-                            label="Username"
-                            name="username"
+                            label="Smart Contract Address"
+                            name="smart-contract-address"
                             rules={[
                                 {
                                     required: true,
-                                    message: 'Please input your username!',
+                                    message: 'Please input your Contract Address!',
                                 },
                             ]}
                         >
@@ -105,12 +108,12 @@ export default function SellPanel({ userNfts }) {
                         </Form.Item>
 
                         <Form.Item
-                            label="Password"
-                            name="password"
+                            label="Token"
+                            name="token"
                             rules={[
                                 {
                                     required: true,
-                                    message: 'Please input your password!',
+                                    message: 'Please input your Token!',
                                 },
                             ]}
                         >
@@ -122,8 +125,8 @@ export default function SellPanel({ userNfts }) {
                                 span: 16,
                             }}
                         >
-                            <Button type="primary" htmlType="submit">
-                                Submit
+                            <Button type="primary" htmlType="submit" onClick={handleSellNFT}>
+                                Sell
                             </Button>
                         </Form.Item>
                     </Form>
