@@ -5,11 +5,10 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { getManagerRequests } from "../../redux/actions";
-import TransactionHistory from "../TransactionHistory";
+import TransactionHistory from "../History/TransactionHistory";
 import dayjs from 'dayjs';
 import { useDispatch } from "react-redux";
 import { Box } from "@mui/system";
-import { blueGrey, pink } from "@mui/material/colors";
 
 
 const { RangePicker } = DatePicker;

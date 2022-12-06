@@ -6,7 +6,8 @@ import {
     GET_USER_TRANSACTION, 
     USER_LOGIN_ERROR, 
     MANAGER_DATE_RANGES,
-    CLOSE_REGISTER_MODAL
+    CLOSE_REGISTER_MODAL,
+    GET_MARKET_NFTS
 } from "../actions/types";
 
 const initialState = {
@@ -20,7 +21,8 @@ const initialState = {
     history: [],
     userLoginError: "",
     rangeHistory: [],
-    closeRegisterModal: false
+    closeRegisterModal: false,
+    marketNFTS: []
 }
 
 const userReducer = (state = initialState, action) => {
@@ -74,6 +76,12 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 rangeHistory: action.payload
+            }
+        }
+        case GET_MARKET_NFTS:{
+            return {
+                ...state,
+                marketNFTS: action.payload
             }
         }
         default: return state;

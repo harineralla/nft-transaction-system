@@ -1,8 +1,50 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-function MarketPlace(){
-    return(
-        <h1>This is MarketPlace Page</h1>
+import { Card, Col, Row, Button, Modal, Form, Input, List } from 'antd';
+import { getMarketNFTs } from "../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+
+function MarketPlace() {
+
+    const dispatch = useDispatch();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const marketNFTS = useSelector(({ nftAppReducer }) => nftAppReducer.userReducer.marketNFTS);
+
+    useEffect(() => {
+        dispatch(getMarketNFTs());
+    })
+
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+
+    return (
+        <List className='c1'
+            grid={{
+                gutter: 16,
+                column: 4,
+            }}
+            dataSource={marketNFTS}
+            renderItem={(item) => (
+                <List.Item>
+                    {/* <Card title={item.title}>Card content</Card> */}
+                    <Card
+                        title={item.name}
+                        hoverable
+                        style={{
+                            width: 200,
+                        }}
+                        cover={<img alt="example" src={item.nft_id} />}
+                    >
+                        <p>${item.price}.00 Eth</p>
+                        <Button type="primary" htmlType="submit" onClick={showModal}>
+                            Sell NFT
+                        </Button>
+                    </Card>
+                </List.Item>
+            )}
+        />
     )
 }
 

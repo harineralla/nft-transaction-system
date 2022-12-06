@@ -2,9 +2,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import LandingPage from "./components/LandingPage";
 import DashboardPage from "./components/DashboardPage";
-import PasswordResetPage from "./components/PasswordResetPage";
+import PasswordResetPage from "../src/components/LandingPage/PasswordResetPage";
 import MarketPlace from "./components/MarketPlace";
-import TransactionHistory from "./components/TransactionHistory";
+import TransactionHistory from "./components/History/TransactionHistory";
 import ManagerPanel from "./components/ManagerPanel";
 import './App.css';
 import Profile from "./components/navBar/profile";

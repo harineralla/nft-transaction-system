@@ -3,7 +3,7 @@ import { Form, Input, Checkbox, Button, Modal } from "antd";
 import { useDispatch } from "react-redux";
 import { Redirect, useNavigate } from 'react-router-dom';
 
-import RegisterForm from "../RegisterForm";
+import RegisterForm from "./RegisterForm";
 import { useSelector } from "react-redux";
 import { getUserDetails } from "../../redux/actions";
 import { getUserNFTs } from '../../redux/actions';

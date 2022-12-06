@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button, Checkbox, Form, Input, InputNumber } from 'antd';
 
-import { saveUserDetails, closeRegisterModal } from '../redux/actions';
+import { saveUserDetails, closeRegisterModal } from '../../redux/actions';
 
-import "../styles/landingPage.css";
+import "../../styles/landingPage.css";
 import { useDispatch } from 'react-redux';
 
 

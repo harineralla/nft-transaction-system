@@ -21,7 +21,7 @@ import logo from '../navBar/logo_1.jpg';
 import { GlobalStyles } from '@mui/styled-engine';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { Add, Savings } from '@mui/icons-material';
-import { Modal} from 'antd';
+import { Modal } from 'antd';
 import DepositForm from '../DepositForm/index';
 import { useSelector } from 'react-redux';
 
@@ -70,20 +70,20 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-const btnSx={
-    my: 2, 
-        color: 'white', 
-        display: 'block',
-        pl: 4,
-        pr: 4,
-    "&:hover":{
+const btnSx = {
+    my: 2,
+    color: 'white',
+    display: 'block',
+    pl: 4,
+    pr: 4,
+    "&:hover": {
         borderColor: 'black',
         backgroundColor: '#C5A9DC',
         opacity: 0.5,
     },
 };
 
-const theme={
+const theme = {
     spacing: 8,
 }
 
@@ -113,7 +113,7 @@ function ResponsiveAppBar() {
         setAnchorElNav(null);
     };
 
-    
+
 
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
@@ -145,27 +145,9 @@ function ResponsiveAppBar() {
     return (
         <appBarStyles>
             <AppBar position="static" className='header-bg'>
-                <Container maxWidth="xl" sx={{pb: 1, pt: 1}}>
+                <Container maxWidth="xl" sx={{ pb: 1, pt: 1 }}>
                     <Toolbar disableGutters >
-                        <img width={90} height={90} src={logo} alt='LOGO'/>
-                        {/*<AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-                        <Typography
-                            variant="h6"
-                            noWrap
-                            component="a"
-                            href="/"
-                            sx={{
-                                mr: 8,
-                                display: { xs: 'none', md: 'flex' },
-                                fontFamily: 'monospace',
-                                fontWeight: 900,
-                                letterSpacing: '.3rem',
-                                color: 'inherit',
-                                textDecoration: 'none',
-                            }}
-                        >
-                            LOGO
-                        </Typography>*/}
+                        <img width={90} height={90} src={logo} alt='LOGO' />
 
                         <Search>
                             <SearchIconWrapper>
@@ -197,13 +179,6 @@ function ResponsiveAppBar() {
                             >
                                 <React.Fragment>
                                     <GlobalStyles styles={{ marginRight: '30px' }} />
-
-
-                                    {/*{pages.map((page) => (
-                                        <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                            <Typography textAlign="center">{page}</Typography>
-                                        </MenuItem>
-                                    ))}*/}
                                     <MenuItem onClick={navdashboard}>Dashboard</MenuItem>
                                     <MenuItem onClick={navmarket}>Market</MenuItem>
                                     <MenuItem onClick={navmanager}>Manager</MenuItem>
@@ -231,56 +206,46 @@ function ResponsiveAppBar() {
                             LOGO
                         </Typography>
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                            {/*{pages.map((page) => (
-                                <Button
-                                key={page}
-                                onClick={handleCloseNavMenu}
-                                sx={btnSx}
-                                variant="outlined"
-                                >
-                                    {page}
-                                </Button>
-                            ))}*/}
                             <Button
                                 onClick={navdashboard}
                                 sx={btnSx}
                                 variant="outlined"
-                                >
-                                    Dashboard
-                                </Button>
+                            >
+                                Dashboard
+                            </Button>
                             <Button
                                 onClick={navmarket}
                                 sx={btnSx}
                                 variant="outlined"
-                                >
-                                    Market
-                                </Button>
-                                <Button
+                            >
+                                Market
+                            </Button>
+                            <Button
                                 onClick={navmanager}
                                 sx={btnSx}
                                 variant="outlined"
-                                >
-                                    Manager
-                                </Button>
-                                <Button
+                            >
+                                Manager
+                            </Button>
+                            <Button
                                 onClick={navhistory}
                                 sx={btnSx}
                                 variant="outlined"
-                                >
-                                    History
-                                </Button>
-                            </Box>
+                            >
+                                History
+                            </Button>
+                        </Box>
 
                         <Box sx={{ flexGrow: 0 }}>
-                        <Tooltip title="Deposit">
+                            <Tooltip title="Deposit">
                                 <IconButton onClick={showModal} sx={{ p: 0, pr: 2 }}>
-                                    <Savings sx={{fontSize: "40px"}}/>
+                                    <Savings sx={{ fontSize: "40px" }} />
                                 </IconButton>
-                                
+
                             </Tooltip>
                             <Tooltip title="Open settings">
                                 <IconButton size='large' onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                    <AccountCircle sx={{fontSize: "80px"}}/>
+                                    <AccountCircle sx={{ fontSize: "80px" }} />
                                 </IconButton>
                             </Tooltip>
                             <Menu
@@ -299,28 +264,22 @@ function ResponsiveAppBar() {
                                 open={Boolean(anchorElUser)}
                                 onClose={handleCloseUserMenu}
                             >
-                                {/*{settings.map((setting) => (
-                                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                        <Typography onClick={navlogin} textAlign="center">{setting}</Typography>
-                                </MenuItem>
-
-                                ))}*/}
                                 <MenuItem onClick={navprofile}>Profile</MenuItem>
                                 <MenuItem onClick={navlogin}>Logout</MenuItem>
                             </Menu>
                         </Box>
                         <Modal
-                title="Enter below details"
-                open={isModalOpen}
-                // onOk={handleOk} 
-                onCancel={handleCancel}
-                footer={null}
-            >
-                <DepositForm userdetails={userDetails}/>
-            </Modal>
+                            title="Enter below details"
+                            open={isModalOpen}
+                            // onOk={handleOk} 
+                            onCancel={handleCancel}
+                            footer={null}
+                        >
+                            <DepositForm userdetails={userDetails} />
+                        </Modal>
                     </Toolbar>
-                    
-                </Container>  
+
+                </Container>
             </ AppBar>
         </appBarStyles>
     );
