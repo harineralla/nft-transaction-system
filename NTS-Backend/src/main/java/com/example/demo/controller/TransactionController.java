@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.Transaction;
+import com.example.demo.model.User;
 import com.example.demo.service.TransactionService;
+import com.example.demo.service.UserService;
 
 @CrossOrigin("*")
 @RestController
@@ -62,4 +64,10 @@ public class TransactionController {
 		return new ResponseEntity<Transaction>(transaction,HttpStatus.OK);
 	}
 
+	@GetMapping("/get/transaction/of/user/{id}")
+	public ResponseEntity<List<Transaction>> getTransactions(@PathVariable("id") Long id){
+		List<Transaction> transactions = transactionService.findTransactionsByUser(id);
+		return new ResponseEntity<List<Transaction>>(transactions, HttpStatus.OK);
+	}
+ 
 }

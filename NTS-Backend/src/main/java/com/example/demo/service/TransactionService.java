@@ -17,4 +17,6 @@ public interface TransactionService {
 	void delete(Long id);
 
 	Transaction cancel(Long id);
+
+	List<Transaction> findTransactionsByUser(Long id);
 }

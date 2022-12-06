@@ -1,7 +1,9 @@
 package com.example.demo.service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -110,6 +112,19 @@ public class TransactionServiceImpl implements TransactionService{
 		
 		transactionRepository.save(transaction);
 		return transaction;
+	}
+
+	@Override
+	public List<Transaction> findTransactionsByUser(Long id) {
+		User user = userService.findById(id);
+		Set<Transaction> lis1 = transactionRepository.findBySeller_eth_address(user.getEth_address());
+		Set<Transaction> lis2 = transactionRepository.findBySeller_eth_address(user.getEth_address());
+		List<Transaction> lis = new ArrayList<Transaction>();
+		for(Transaction i:lis1)
+			lis.add(i);
+		// List<Transaction> lis = ArrayList<Transaction>(lis1);
+		return lis;
+	
 	}
     
 }
