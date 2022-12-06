@@ -2,7 +2,8 @@ import { React, useEffect, useState } from 'react';
 import { Card, Col, Row, Button, Modal, Form, Input, List } from 'antd';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSellNFTValue } from '../../redux/actions';
 import nft from "../DashboardPage/nft_1.jpg";
 import "../DashboardPage/index.css"
 const { Meta } = Card;
@@ -10,35 +11,24 @@ const { Meta } = Card;
 export default function SellPanel({ userNfts }) {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
-    // const [userData, getUserData] = useState([]);
-    // const [usernfts, getUserNfts] = useState([]);
+    const [userData, getUserData] = useState([]);
+    const [usernfts, getUserNfts] = useState([]);
+    const [sellNFT_id, setSellID] = useState(0);
+    const [boolValue, setButtonValue] = useState(false);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        // var data = JSON.parse(window.localStorage.getItem('USER_DETAILS'));
-        // var userNFTs = JSON.parse(window.localStorage.getItem('USER_NFTS'));
-        // getUserData([data]);
-        // getUserNfts(userNFTs);
+        var data = JSON.parse(window.localStorage.getItem('USER_DETAILS'));
+        var userNFTs = JSON.parse(window.localStorage.getItem('USER_NFTS'));
+        getUserData([data]);
+        getUserNfts(userNFTs);
     }, []);
 
-    const onFinish = () => {
-        console.log("on finish successfull")
-        navigate("/market-place")
-    }
-    const onFinishFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo);
-    };
-    const showModal = () => {
-        setIsModalOpen(true);
-    };
-    const handleCancel = () => {
-        setIsModalOpen(false);
-    };
-    const handleBuyNFT = (nft_item) => {
-
-    }
     const handleSellNFT = (nft_item) => {
-        // console.log(nft_item)
+        dispatch(setSellNFTValue(sellNFT_id));
+        setButtonValue(true)
+        window.location.reload(true);
     }
 
     return (
@@ -46,13 +36,13 @@ export default function SellPanel({ userNfts }) {
         <div className='right-div align' style={{
             height: 500,
         }}>
-            
+
             <List className='c1'
                 grid={{
                     gutter: 16,
                     column: 4,
                 }}
-                dataSource={userNfts}
+                dataSource={usernfts}
                 renderItem={(item) => (
                     <List.Item>
                         {/* <Card title={item.title}>Card content</Card> */}
@@ -65,9 +55,14 @@ export default function SellPanel({ userNfts }) {
                             cover={<img alt="example" src={nft} />}
                         >
                             <p>${item.price}.00 Eth</p>
-                            <Button type="primary" htmlType="submit" onClick={showModal}>
-                                Sell NFT
-                            </Button>
+                            <>
+                                {boolValue ?
+                                    <Button type="primary" htmlType="submit" onClick={handleSellNFT(item.nft_id)}>
+                                        Sell NFT
+                                    </Button> :
+                                    <></>
+                                }
+                            </>
                         </Card>
                     </List.Item>
                 )}
@@ -76,7 +71,7 @@ export default function SellPanel({ userNfts }) {
                 <Modal title="Sell NFT"
                     open={isModalOpen}
                     // onOk={handleOk} 
-                    onCancel={handleCancel}
+                    // onCancel={handleCancel}
                     footer={null}
                 >
                     <Form
@@ -90,8 +85,8 @@ export default function SellPanel({ userNfts }) {
                         initialValues={{
                             remember: true,
                         }}
-                        onFinish={onFinish}
-                        onFinishFailed={onFinishFailed}
+                        // onFinish={handleSellNFT}
+                        // onFinishFailed={onFinishFailed}
                         autoComplete="off"
                     >
                         <Form.Item

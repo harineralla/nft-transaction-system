@@ -17,6 +17,7 @@ export const closeRegisterModal = (boolValue) => {
         })
     }
 }
+
 export const getUserDetails = (data) => {
     return dispatch => {
         return axios
@@ -87,10 +88,10 @@ export const saveDepositDetails = (data) => {
     }
 }
 
-export const getTransactionHistory = () => {
+export const getTransactionHistory = (user_id) => {
     return dispatch => {
         return axios
-            .get(`${BASE_URL}/transaction`)
+            .get(`${BASE_URL}/get/transaction/of/user/${user_id}`)
             .then(response => {
                 dispatch({
                     type: GET_USER_TRANSACTION,
@@ -122,6 +123,16 @@ export const getMarketNFTs = () => {
                     type: GET_MARKET_NFTS,
                     payload: response.data
                 })
+            })
+    }
+}
+
+export const setSellNFTValue = (nft_id) => {
+    return dispatch => {
+        return axios
+            .get(`${BASE_URL}/nft/sell/${nft_id}`)
+            .then(response => {
+                console.log("sell nft response ", response.data);
             })
     }
 }

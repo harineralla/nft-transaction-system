@@ -10,10 +10,7 @@ import "./index.css";
 
 export default function DashboardPage() {
     const dispatch = useDispatch();
-    /*const [isModalOpen, setIsModalOpen] = useState(false);*/
-
-    // const userDetails = useSelector(({ nftAppReducer }) => nftAppReducer.userReducer.userInfo);
-    // const userNFTs = useSelector(({ nftAppReducer }) => nftAppReducer.userReducer.usernfts);
+    
     const [userDetails, getUserData] = useState({});
     const [userNFTs, getUserNfts] = useState([]);
 
