@@ -57,7 +57,7 @@ export default function MarketPlace() {
                             }}
                             cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
                         >
-                           <p class="price"> Balance: {item.price}</p>
+                           <p class="price"> Price: ${item.price}</p>
                             <Button type="primary" htmlType="submit" onClick={showModal}>
                                 Buy NFT
                             </Button>
