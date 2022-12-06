@@ -19,7 +19,6 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import logo from '../navBar/logo_1.jpg';
 import { GlobalStyles } from '@mui/styled-engine';
-import { useNavigate } from 'react-router-dom';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { Add, Savings } from '@mui/icons-material';
 import { Modal } from 'antd';
@@ -89,13 +88,13 @@ const theme = {
 }
 
 function ResponsiveAppBar() {
+    
+    const navigate = useNavigate();
     const [anchorElNav, setAnchorElNav] = React.useState(null);
 
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-    const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = React.useState(false);
     const userDetails = useSelector(({ nftAppReducer }) => nftAppReducer.userReducer.userInfo);
-    const navigate = useNavigate();
 
     const showModal = () => {
         setIsModalOpen(true);
