@@ -8,13 +8,16 @@ const { Meta } = Card;
 export default function SellPanel({ userNfts }) {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
+    // const [userData, getUserData] = useState([]);
+    // const [usernfts, getUserNfts] = useState([]);
     const navigate = useNavigate();
 
-    const nftData = useSelector(({ nftAppReducer }) => nftAppReducer.userReducer.usernfts);
-
     useEffect(() => {
-        console.log(userNfts)
-    }, [nftData, userNfts]);
+        // var data = JSON.parse(window.localStorage.getItem('USER_DETAILS'));
+        // var userNFTs = JSON.parse(window.localStorage.getItem('USER_NFTS'));
+        // getUserData([data]);
+        // getUserNfts(userNFTs);
+    }, []);
 
     const onFinish = () => {
         console.log("on finish successfull")

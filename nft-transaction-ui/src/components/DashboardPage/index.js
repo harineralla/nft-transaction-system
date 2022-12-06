@@ -12,13 +12,17 @@ export default function DashboardPage() {
     const dispatch = useDispatch();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const userDetails = useSelector(({ nftAppReducer }) => nftAppReducer.userReducer.userInfo);
-    const userNFTs = useSelector(({ nftAppReducer }) => nftAppReducer.userReducer.usernfts);
+    // const userDetails = useSelector(({ nftAppReducer }) => nftAppReducer.userReducer.userInfo);
+    // const userNFTs = useSelector(({ nftAppReducer }) => nftAppReducer.userReducer.usernfts);
+    const [userDetails, getUserData] = useState({});
+    const [userNFTs, getUserNfts] = useState([]);
 
     useEffect(() => {
-        console.log("user id ", userDetails["user_id"])
-        
-    }, [userNFTs]);
+        var data = JSON.parse(window.localStorage.getItem('USER_DETAILS'));
+        var userNFTs = JSON.parse(window.localStorage.getItem('USER_NFTS'));
+        getUserData(data);
+        getUserNfts(userNFTs);
+    }, []);
 
     const showModal = () => {
         setIsModalOpen(true);

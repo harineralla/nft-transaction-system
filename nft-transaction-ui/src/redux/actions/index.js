@@ -10,6 +10,7 @@ export const getUserDetails = (data) => {
         return axios
             .get(`${BASE_URL}/user/signIn/${data["email"]}/${data["password"]}`)
             .then(response => {
+                window.localStorage.setItem('USER_DETAILS', JSON.stringify(response.data));
                 dispatch({
                     type: GET_USER_DETAILS,
                     payload: response.data
@@ -29,6 +30,7 @@ export const getUserNFTs = (user_id) => {
         return axios
             .get(`${BASE_URL}/list/user/nfts/${user_id}`)
             .then(response => {
+                window.localStorage.setItem('USER_NFTS', JSON.stringify(response.data));
                 dispatch({
                     type: GET_USER_NFT_DETAILS,
                     payload: response.data
