@@ -30,8 +30,9 @@ export default function RegisterForm() {
                 "state": details["state"],
                 "zip_code": details["zipcode"]
             }
-        };
-        dispatch(saveUserDetails(userdetails))
+        }
+        dispatch(saveUserDetails(userdetails));
+
     }
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -161,50 +162,6 @@ export default function RegisterForm() {
             >
                 <Input />
             </Form.Item>
-            {/* <Form.Item
-                name="level"
-                label="Level"
-                rules={[
-                    {
-                        type: 'number',
-                    },
-                ]}
-            >
-                <InputNumber />
-            </Form.Item> */}
-            {/* <Form.Item
-                name="eth-balance"
-                label="Ethereum Balance"
-                rules={[
-                    {
-                        type: 'number',
-                    },
-                ]}
-            >
-                <InputNumber />
-            </Form.Item>
-            <Form.Item
-                name="fiat-balance"
-                label="Fiat Balance"
-                rules={[
-                    {
-                        type: 'number',
-                    },
-                ]}
-            >
-                <InputNumber />
-            </Form.Item> */}
-            {/* <Form.Item
-                name="remember"
-                valuePropName="checked"
-                wrapperCol={{
-                    offset: 8,
-                    span: 16,
-                }}
-            >
-                <Checkbox>Remember me</Checkbox>
-            </Form.Item> */}
-
             <Form.Item
                 label="Street Address"
                 name="street-address"

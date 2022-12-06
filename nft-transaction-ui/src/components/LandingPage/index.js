@@ -1,11 +1,13 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { Form, Input, Checkbox, Button, Modal } from "antd";
 import { useDispatch } from "react-redux";
 import { Redirect, useNavigate } from 'react-router-dom';
 
 import RegisterForm from "../RegisterForm";
-import { getUserNFTs } from "../../redux/actions";
-import { validateUserLogin } from "../../redux/actions";
+import { useSelector } from "react-redux";
+import { getUserDetails } from "../../redux/actions";
+import { getUserNFTs } from '../../redux/actions';
+
 import "./index.css";
 
 
@@ -15,31 +17,27 @@ export default function LandingPage({ history }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isUser, checkUserCreds] = useState(false);
 
-    const onFinish = (e) => {
-        console.log("on finish", e);
-        navigate("/dashboard")
-        {/* if (dispatch(validateUserLogin({ "username": e.username, "password": e.password }))) {
-            checkUserCreds(true)
-        } else {
-            return (
-                <>{
-                    !isUser?
-                        <>
-                            <Alert
-                                message="Error"
-                                description="Login Credentials are wrong"
-                                type="error"
-                                showIcon
-                            />
-                        </> :
-                        <></>
-                }</>
-            )
-        } */}
-    }
+    const userDetails = useSelector(({ nftAppReducer }) => nftAppReducer.userReducer.userInfo);
+    const userLoginError = useSelector(({ nftAppReducer }) => nftAppReducer.userReducer.userLoginError);
 
+    useEffect(() => {
+        checkLoginDetails();
+    }, [userDetails, userLoginError]);
+
+    const checkLoginDetails = () => {
+        if (Object.keys(userDetails).length !== 0) {
+            dispatch(getUserNFTs(userDetails["user_id"]));
+            navigate("/dashboard");
+        } else if (userLoginError) {
+            alert("Login credentials are wrong. Please check!", userLoginError);
+        }
+    }
+    const onFinish = (e) => {
+        console.log(e)
+        dispatch(getUserDetails({ "email": e.email, "password": e.password }));
+    }
     const onFinishFailed = () => {
-        console.log("on finish failed")
+        alert("Login Failed!!");
     }
     const showModal = () => {
         setIsModalOpen(true);
@@ -65,8 +63,8 @@ export default function LandingPage({ history }) {
                 autoComplete="off"
             >
                 <Form.Item
-                    label="Username"
-                    name="username"
+                    label="Email"
+                    name="email"
                     rules={[
                         {
                             required: true,
@@ -89,18 +87,6 @@ export default function LandingPage({ history }) {
                 >
                     <Input.Password />
                 </Form.Item>
-
-                <Form.Item
-                    name="remember"
-                    valuePropName="checked"
-                    wrapperCol={{
-                        offset: 8,
-                        span: 16,
-                    }}
-                >
-                    <Checkbox>Remember me</Checkbox>
-                </Form.Item>
-
                 <Form.Item
                     wrapperCol={{
                         offset: 8,

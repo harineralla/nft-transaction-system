@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 const { Meta } = Card;
 
-export default function SellPanel() {
+export default function SellPanel({ userNfts }) {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const navigate = useNavigate();
@@ -13,8 +13,8 @@ export default function SellPanel() {
     const nftData = useSelector(({ nftAppReducer }) => nftAppReducer.userReducer.usernfts);
 
     useEffect(() => {
-        console.log(nftData)
-    }, [nftData]);
+        console.log(userNfts)
+    }, [nftData, userNfts]);
 
     const onFinish = () => {
         console.log("on finish successfull")
@@ -30,11 +30,10 @@ export default function SellPanel() {
         setIsModalOpen(false);
     };
     const handleBuyNFT = (nft_item) => {
-        console.log(nft_item)
+        // console.log(nft_item)
     }
 
     return (
-
         <div style={{
             height: 500,
         }}>
@@ -43,7 +42,7 @@ export default function SellPanel() {
                     gutter: 16,
                     column: 4,
                 }}
-                dataSource={nftData}
+                dataSource={userNfts}
                 renderItem={(item) => (
                     <List.Item>
                         {/* <Card title={item.title}>Card content</Card> */}
@@ -55,6 +54,7 @@ export default function SellPanel() {
                             }}
                             cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
                         >
+                            <p>${item.price}.00 Eth</p>
                             <Button type="primary" htmlType="submit" onClick={showModal}>
                                 Sell NFT
                             </Button>

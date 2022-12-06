@@ -1,6 +1,6 @@
 import { React, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Button, Checkbox, Form, Input, InputNumber } from 'antd';
+import { Button, Checkbox, Form, Input, InputNumber, Select } from 'antd';
 import { saveDepositDetails } from '../../redux/actions';
 import moment from 'moment-timezone';
 
@@ -11,15 +11,23 @@ export default function DepositForm({ userdetails }) {
     const dispatch = useDispatch();
 
     const onFinish = (details) => {
+        var deposit_amt = 0;
         var depositdetails = {
-            "user_id": userdetails["user_id"],
-            "date_of_payment": moment().format('MMMM Do YYYY, h:mm:ss a'),
-            "eth_amt": details["eth_amt"],
-            "fiat_amt": details["fiat_amt"],
-            "payment_address": details["payment_address"],
-            // "type": details["type"]
+            "user": {
+                "user_id": userdetails["user_id"]
+            },
+            "date_of_payment": moment().format('YYYY-MM-DD'),
+            "payment_address": details["payment-address"],
+            "type": details["type"]
         };
-        dispatch(saveDepositDetails(userdetails));
+        if (details["type"] === "fiat") {
+            depositdetails["fiat_amt"] = details["deposit-amount"]
+            depositdetails["eth_amt"] = 0;
+        } else if (details["type"] === "ethereum") {
+            depositdetails["fiat_amt"] = 0;
+            depositdetails["eth_amt"] = details["deposit-amount"];
+        }
+        dispatch(saveDepositDetails(depositdetails));
     }
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -41,29 +49,14 @@ export default function DepositForm({ userdetails }) {
             autoComplete="off"
         >
             <Form.Item
-                label="Fiat Amount"
-                name="fiat-amount"
+                label="Deposit Amount"
+                name="deposit-amount"
                 rules={[
                     {
                         required: true,
                         message: 'Please input your fiat amount!',
                     },
                 ]}
-                initialValue={userdetails["fiat_balance"]}
-            >
-                <Input />
-            </Form.Item>
-
-            <Form.Item
-                label="User ID"
-                name="user-id"
-                rules={[
-                    {
-                        required: true,
-                        message: 'Please input your last name!',
-                    },
-                ]}
-                initialValue={userdetails["user_id"]}
             >
                 <Input />
             </Form.Item>
@@ -72,24 +65,13 @@ export default function DepositForm({ userdetails }) {
                 label="Name"
                 rules={[
                     {
-                        type: 'number',
+                        required: true,
+                        message: 'Please input your name!',
                     },
                 ]}
                 initialValue={userdetails["name"]}
             >
-                <InputNumber />
-            </Form.Item>
-            <Form.Item
-                name="phone-number"
-                label="Phone Number"
-                rules={[
-                    {
-                        type: 'number',
-                    },
-                ]}
-                initialValue={userdetails["ph_no"]}
-            >
-                <InputNumber />
+                <Input />
             </Form.Item>
             <Form.Item
                 label="Ethereum Address"
@@ -100,8 +82,24 @@ export default function DepositForm({ userdetails }) {
                         message: 'Please input your ethereum address!',
                     },
                 ]}
+                initialValue={userdetails["eth_address"]}
             >
                 <Input />
+            </Form.Item>
+            <Form.Item
+                label="Currency Type"
+                name="type"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please input your currency type!',
+                    },
+                ]}
+            >
+                <Select>
+                    <Select.Option value="fiat">Fiat Currency</Select.Option>
+                    <Select.Option value="ethereum">Ethereum</Select.Option>
+                </Select>
             </Form.Item>
             <Form.Item
                 label="Payment Address"
