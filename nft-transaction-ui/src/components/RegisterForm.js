@@ -82,22 +82,22 @@ export default function RegisterForm() {
                 label="Phone Number"
                 rules={[
                     {
-                        type: 'number',
+                        max: 10
                     },
                 ]}
             >
-                <InputNumber />
+                <Input />
             </Form.Item>
             <Form.Item
                 name="cell-number"
                 label="Cell Phone"
                 rules={[
                     {
-                        type: 'number',
+                        max: 10
                     },
                 ]}
             >
-                <InputNumber />
+                <Input />
             </Form.Item>
             <Form.Item
                 name="email"
