@@ -18,6 +18,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { GlobalStyles } from '@mui/styled-engine';
+import { useNavigate } from 'react-router-dom';
 
 const pages = ['Account', 'Dashboard', 'Market', 'Owned Products', 'Wallet', 'Cart'];
 const settings = ['Profile', 'Logout'];
@@ -66,7 +67,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
+
     const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const navigate = useNavigate();
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
@@ -77,6 +80,8 @@ function ResponsiveAppBar() {
 
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
+        navigate("/market-place")
+
     };
 
     const handleCloseUserMenu = () => {

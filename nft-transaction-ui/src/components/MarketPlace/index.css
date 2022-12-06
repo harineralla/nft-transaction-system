@@ -1,0 +1,10 @@
+.price {
+    color: green;
+    border: green;
+    border-style: inset;
+    border-radius: 5px;
+    text-align: center;    
+}
+.ant-btn-primary{
+    margin-bottom: 5px;
+}
