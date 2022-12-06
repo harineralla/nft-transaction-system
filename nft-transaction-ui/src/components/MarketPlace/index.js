@@ -16,13 +16,17 @@ function MarketPlace() {
         dispatch(getMarketNFTs());
     })
 
+    const handleClose = () => {
+        setIsModalOpen(false);
+    }
+
     const showModal = (nft_id) => {
         setIsModalOpen(true);
         setBuyID(nft_id)
     };
 
     const handleBuyNFT = () => {
-        dispatch(postBuyTransaction(buyNFT_id));
+        // dispatch(postBuyTransaction(buyNFT_id));
     }
 
     return (
@@ -44,7 +48,7 @@ function MarketPlace() {
                             cover={<img alt="example" src={item.nft_id} />}
                         >
                             <p>${item.price}.00 Eth</p>
-                            <Button type="primary" htmlType="submit" onClick={showModal(item.nft_id)}>
+                            <Button type="primary" htmlType="submit" onClick={showModal}>
                                 Buy NFT
                             </Button>
                         </Card>
@@ -52,9 +56,10 @@ function MarketPlace() {
                 )}
             />
             <>
-                <Modal title="Sell NFT"
+                <Modal title="Buy NFT"
                     open={isModalOpen}
                     footer={null}
+                    onCancel={handleClose}
                 >
                     <Form
                         name="basic"
@@ -102,8 +107,8 @@ function MarketPlace() {
                                 span: 16,
                             }}
                         >
-                            <Button type="primary" htmlType="submit" onClick={handleSellNFT}>
-                                Sell
+                            <Button type="primary" htmlType="submit" onClick={handleBuyNFT}>
+                                Buy NFT
                             </Button>
                         </Form.Item>
                     </Form>
