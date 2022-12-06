@@ -1,0 +1,52 @@
+body{
+    display: block;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url("profile bg.jpg");
+}
+.fit{
+    position: relative;
+    display: block;
+    background-repeat: no-repeat;
+}
+
+.box{
+    width: 800px;
+    height: 300px;
+    border: 1px solid red;
+    margin: 150px auto;
+    align-content: center;
+    background:white;
+    border-radius: 8px;
+}
+
+.name{
+    padding-top: 10%;
+    padding-left: 5%;
+}
+
+.c1{
+    float: left;
+    width: 25%;
+    height: 280px;
+    padding-top: 5%;
+    padding-left: 3%;
+}
+
+.c2{
+    float: left;
+    width: 50%;
+    height: 280px;
+}
+
+.c3{
+    float: right;
+    width: 25%;
+    height: 280px;
+}
+
+.img{
+    width: 150px;
+    border-radius: 10px;
+    height: 200px;
+}

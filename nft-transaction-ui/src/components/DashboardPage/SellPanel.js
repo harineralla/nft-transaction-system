@@ -3,6 +3,8 @@ import { Card, Col, Row, Button, Modal, Form, Input, List } from 'antd';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import nft from "../DashboardPage/nft_1.jpg";
+import "../DashboardPage/index.css"
 const { Meta } = Card;
 
 export default function SellPanel({ userNfts }) {
@@ -37,10 +39,12 @@ export default function SellPanel({ userNfts }) {
     }
 
     return (
-        <div style={{
+
+        <div className='right-div align' style={{
             height: 500,
         }}>
-            <List
+            
+            <List className='c1'
                 grid={{
                     gutter: 16,
                     column: 4,
@@ -55,14 +59,11 @@ export default function SellPanel({ userNfts }) {
                             style={{
                                 width: 200,
                             }}
-                            cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
+                            cover={<img alt="example" src={nft} />}
                         >
                             <p>${item.price}.00 Eth</p>
                             <Button type="primary" htmlType="submit" onClick={showModal}>
                                 Sell NFT
-                            </Button>
-                            <Button onClick={handleBuyNFT(item)}>
-                                Add to Cart
                             </Button>
                         </Card>
                     </List.Item>

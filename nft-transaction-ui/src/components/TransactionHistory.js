@@ -1,5 +1,7 @@
 import React from "react";
-import { Table, Button, Card } from 'antd';
+import { Table, Button, Card, Typography} from 'antd';
+
+import { fontGrid } from "@mui/material/styles/cssUtils";
 
 function TransactionHistory() {
 
@@ -97,6 +99,7 @@ function TransactionHistory() {
                 columns={columns}
                 dataSource={data}
                 scroll={{ y: 775 }}
+                
             />
         </Card>
     )

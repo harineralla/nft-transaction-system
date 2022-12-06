@@ -46,8 +46,8 @@ export default function LandingPage({ history }) {
         setIsModalOpen(false);
     };
     return (
-        <div style={BodyStyle}>
-            <Form
+        <div className="la-bg-img padding pt-40">
+            <Form className="cont-img pt-5"
                 name="basic"
                 labelCol={{
                     span: 8,
@@ -62,6 +62,7 @@ export default function LandingPage({ history }) {
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
             >
+                <h2 className="fw-bold mb-2 login text-uppercase">Login</h2>
                 <Form.Item
                     label="Email"
                     name="email"
@@ -93,16 +94,20 @@ export default function LandingPage({ history }) {
                         span: 16,
                     }}
                 >
-                    <Button type="primary" htmlType="submit">
+                    <Button type="primary" htmlType="submit" className="ms-sm-5">
                         Submit
                     </Button>
                 </Form.Item>
+                <a href="/forgot-password" className="padding">Forget Password?</a>
             </Form>
-            <div>
-                <p className="mb-0 mr-1 pb-2">Don't have an account?</p>
+            <div className="ms-sm-6">
+                <p className="mb-0 mr-1 pb-2 color">Don't have an account?</p>
+                <div className="ms-sm-5">
                 <Button type="primary" onClick={showModal}>
                     Register
                 </Button>
+                </div>
+
             </div>
             <>
                 <Modal title="Basic Modal"
