@@ -5,7 +5,10 @@ import LoginPage from "./components/LoginPage";
 import RegisterPage from "./components/RegisterForm";
 import DashboardPage from "./components/DashboardPage";
 import PasswordResetPage from "./components/PasswordResetPage";
-
+import MarketPlace from "./components/MarketPlace";
+import TransactionHistory from "./components/History/TransactionHistory";
+import ManagerPanel from "./components/ManagerPanel";
+import WalletCard from "../src/components/navBar/wallet";
 import './App.css';
 
 function App() {
@@ -18,6 +21,11 @@ function App() {
           {/* <Route path="/register" element={<RegisterPage />} /> */}
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/forgot-password" element={<PasswordResetPage />} />
+          <Route path="/market-place" element={<MarketPlace />} />
+          <Route path="/history" element={<TransactionHistory />} />
+          <Route path="/manager" element={<ManagerPanel />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/wallet" element={<WalletCard />} />
         </Routes>
       </Router>
     </div>

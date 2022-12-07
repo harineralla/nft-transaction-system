@@ -64,6 +64,21 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
+const btnSx = {
+    my: 2,
+    color: 'white',
+    display: 'block',
+    "&:hover": {
+        borderColor: 'black',
+        backgroundColor: '#C5A9DC',
+        opacity: 0.5,
+    },
+};
+
+const theme = {
+    spacing: 8,
+}
+
 function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -82,6 +97,29 @@ function ResponsiveAppBar() {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+
+    const navlogin = () => {
+        navigate("/")
+    }
+
+    const navdashboard = () => {
+        navigate("/dashboard")
+    }
+    const navmarket = () => {
+        navigate("/market-place")
+    }
+    const navmanager = () => {
+        navigate("/manager")
+    }
+    const navhistory = () => {
+        navigate("/history")
+    }
+    const navprofile = () => {
+        navigate("/profile")
+    }
+    const navwallet = () => {
+        navigate("/wallet")
+    }
     const appBarStyles = styled('div')(({ theme }) => ({
         backgroundColor: '#200636 !important',
     }));
@@ -140,13 +178,11 @@ function ResponsiveAppBar() {
                             >
                                 <React.Fragment>
                                     <GlobalStyles styles={{ marginRight: '30px' }} />
-
-
-                                    {pages.map((page) => (
-                                        <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                            <Typography textAlign="center">{page}</Typography>
-                                        </MenuItem>
-                                    ))}
+                                    <MenuItem onClick={navdashboard}>Dashboard</MenuItem>
+                                    <MenuItem onClick={navmarket}>Market</MenuItem>
+                                    <MenuItem onClick={navwallet}>wallet</MenuItem>
+                                    <MenuItem onClick={navmanager}>Manager</MenuItem>
+                                    <MenuItem onClick={navhistory}>History</MenuItem>
                                 </React.Fragment>
                             </Menu>
                         </Box>
@@ -170,15 +206,41 @@ function ResponsiveAppBar() {
                             LOGO
                         </Typography>
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                            {pages.map((page) => (
-                                <Button
-                                    key={page}
-                                    onClick={handleCloseNavMenu}
-                                    sx={{ my: 2, color: 'white', display: 'block' }}
-                                >
-                                    {page}
-                                </Button>
-                            ))}
+                            <Button
+                                onClick={navdashboard}
+                                sx={btnSx}
+                                variant="outlined"
+                            >
+                                Dashboard
+                            </Button>
+                            <Button
+                                onClick={navmarket}
+                                sx={btnSx}
+                                variant="outlined"
+                            >
+                                Market
+                            </Button>
+                            <Button
+                                onClick={navwallet}
+                                sx={btnSx}
+                                variant="outlined"
+                            >
+                                Wallet
+                            </Button>
+                            <Button
+                                onClick={navmanager}
+                                sx={btnSx}
+                                variant="outlined"
+                            >
+                                Manager
+                            </Button>
+                            <Button
+                                onClick={navhistory}
+                                sx={btnSx}
+                                variant="outlined"
+                            >
+                                History
+                            </Button>
                         </Box>
 
                         <Box sx={{ flexGrow: 0 }}>
