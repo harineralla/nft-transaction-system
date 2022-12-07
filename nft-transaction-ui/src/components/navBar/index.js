@@ -23,7 +23,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import { Add, Savings } from '@mui/icons-material';
 import { Modal } from 'antd';
 import DepositForm from '../DepositForm/index';
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { getTransactionHistory, getCurrentEthPrice } from "../../redux/actions";
 
 const pages = [/*'Account'*/, 'Dashboard', 'Market', 'Owned Products', 'Wallet', 'Cart'];
@@ -86,7 +86,7 @@ const theme = {
     spacing: 8,
 }
 
-function ResponsiveAppBar() {
+function ResponsiveAppBar({ trader_role }) {
     const dispatch = useDispatch();
 
     const [userDetails, getUserData] = React.useState({});
@@ -114,7 +114,7 @@ function ResponsiveAppBar() {
         setAnchorElNav(null);
     };
 
-    React.useEffect(()=>{
+    React.useEffect(() => {
         var data = JSON.parse(window.localStorage.getItem('USER_DETAILS'));
         // var userNFTs = JSON.parse(window.localStorage.getItem('USER_NFTS'));
         getUserData(data);
@@ -140,9 +140,9 @@ function ResponsiveAppBar() {
         navigate("/manager")
     }
     const navhistory = () => {
-        
+
         dispatch(getTransactionHistory(userDetails["user_id"]));
-        
+
         navigate("/history")
     }
     const navprofile = () => {
@@ -196,6 +196,14 @@ function ResponsiveAppBar() {
                                     <MenuItem onClick={navmarket}>Market</MenuItem>
                                     <MenuItem onClick={navwallet}>wallet</MenuItem>
                                     <MenuItem onClick={navmanager}>Manager</MenuItem>
+                                    <>
+                                        {
+                                            trader_role ?
+                                                <MenuItem onClick={navmanager}>Manager</MenuItem>
+                                                :
+                                                <></>
+                                        }
+                                    </>
                                     <MenuItem onClick={navhistory}>History</MenuItem>
                                 </React.Fragment>
                             </Menu>

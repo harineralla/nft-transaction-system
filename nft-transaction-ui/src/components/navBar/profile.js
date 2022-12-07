@@ -9,8 +9,7 @@ export default function Profile(){
     const [userData, getUserData] = useState([]);
     useEffect(() => {
         var data = JSON.parse(window.localStorage.getItem('USER_DETAILS'));
-        // getUserData([data]);
-        // getUserNfts(userNFTs);
+        getUserData([data][0]);
     }, []);
 
     return(

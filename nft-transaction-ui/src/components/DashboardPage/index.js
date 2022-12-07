@@ -23,7 +23,7 @@ export default function DashboardPage() {
 
     return (
         <div className='bg-img'>
-            <ResponsiveAppBar />
+            <ResponsiveAppBar trader_role={userDetails["role"]}/>
             <SellPanel userNfts={userNFTs} />
         </div>
     )
