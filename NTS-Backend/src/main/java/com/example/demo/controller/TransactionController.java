@@ -39,8 +39,8 @@ public class TransactionController {
 	 * @param transaction
 	 * @return
 	 */
-	@PostMapping("/transaction")
-	public ResponseEntity<Transaction> save(@RequestBody Transaction transaction,@RequestParam BigDecimal eth_price) {
+	@PostMapping("/transaction/{eth_price}")
+	public ResponseEntity<Transaction> save(@RequestBody Transaction transaction,@PathVariable BigDecimal eth_price) {
 		//eth_price -> price of 1 ETH in USD
 		Transaction transactionOne = transactionService.save(transaction,eth_price);
 		return new ResponseEntity<Transaction>(transactionOne, HttpStatus.OK);
