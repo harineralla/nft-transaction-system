@@ -1,16 +1,47 @@
-import { React, useState } from "react";
-import { Button, Modal } from 'antd';
-import { Link } from "react-router-dom";
+import { React, useState, useEffect } from "react";
+import { Form, Input, Checkbox, Button, Modal } from "antd";
+import { useDispatch } from "react-redux";
+import { Redirect, useNavigate } from 'react-router-dom';
 
-import RegisterForm from "../RegisterForm";
-import { getUserNFTs } from "../../redux/actions";
+import RegisterForm from "./RegisterForm";
+import { useSelector } from "react-redux";
+import { getUserDetails } from "../../redux/actions";
+import { getUserNFTs } from '../../redux/actions';
+
 import "./index.css";
 
 
-export default function LandingPage() {
+export default function LandingPage({ history }) {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isUser, checkUserCreds] = useState(false);
 
+    const userDetails = useSelector(({ nftAppReducer }) => nftAppReducer.userReducer.userInfo);
+    const userLoginError = useSelector(({ nftAppReducer }) => nftAppReducer.userReducer.userLoginError);
+    const closeModal = useSelector(({ nftAppReducer }) => nftAppReducer.userReducer.closeRegisterModal);
 
+    useEffect(() => {
+        checkLoginDetails();
+        if (closeModal) {
+            setIsModalOpen(false);
+        }
+    }, [userDetails, userLoginError]);
+
+    const checkLoginDetails = () => {
+        if (Object.keys(userDetails).length !== 0) {
+            dispatch(getUserNFTs(userDetails["user_id"]));
+            navigate("/dashboard");
+        } else if (userLoginError) {
+            alert("Login credentials are wrong. Please check!", userLoginError);
+        }
+    }
+    const onFinish = (e) => {
+        dispatch(getUserDetails({ "email": e.email, "password": e.password }));
+    }
+    const onFinishFailed = () => {
+        alert("Login Failed!!");
+    }
     const showModal = () => {
         setIsModalOpen(true);
     };
@@ -18,50 +49,69 @@ export default function LandingPage() {
         setIsModalOpen(false);
     };
     return (
-        <div style={BodyStyle}>
-            <section className="vh-100 gradient-custom la-bg-img">
-                <div className="container py-1 h-50 ">
-                    <div className="row d-flex justify-content-center align-items-center h-50">
-                        <div className="col-12 col-md-8 col-lg-6 col-xl-5">
-                            {/* <div className="card bg-dark text-white" style={{ borderRadius: "1rem;" }}> */}
-                            <form className="card bg-opacity-75 card-body p-3 text-center cont-img">
-                                <div className="mb-md-2 mt-md-4 pt-md-1 pb-1">
-                                    {/* <form action="/dashboard" className="card-body p-5 text-center"> */}
-                                    <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
-                                    <p className="text-black mb-3">Please enter your login and password!</p>
-                                    <div className="form-outline form-white mb-4">
-                                    <label className="form-label">Email</label>
-                                        <input type="email" id="typeEmailX" className="form-control form-control-lg" />
-                                        
-                                    </div>
-                                    <div className="form-outline form-white mb-4">
-                                    <label className="form-label">Password</label>
-                                        <input type="password" id="typePasswordX" className="form-control form-control-lg" />
-                                        
-                                    </div>
+        <div className="la-bg-img padding pt-40">
+            <Form className="cont-img pt-5"
+                name="basic"
+                labelCol={{
+                    span: 8,
+                }}
+                wrapperCol={{
+                    span: 16,
+                }}
+                initialValues={{
+                    remember: true,
+                }}
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
+                autoComplete="off"
+            >
+                <h2 className="fw-bold mb-2 login text-uppercase">Login</h2>
+                <Form.Item
+                    label="Email"
+                    name="email"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please input your username!',
+                        },
+                    ]}
+                >
+                    <Input />
+                </Form.Item>
 
-                                    <p className="small mb-2 pb-lg-2"><a className="text-black" href="#!">Forgot password?</a></p>
-
-                                    <Link to="/dashboard">
-                                        <button className="primary-button" >log in</button>
-                                    </Link>
-                                    {/* </form> */}
-                                </div>
-                                <div>
-                                    <p className="mb-0 mr-1 pb-2">Don't have an account?</p>
-                                    {/* <Link to="/register"> */}
-                                    <Button type="primary" onClick={showModal}>
-                                        Register
-                                    </Button>
-                                    {/* </Link> */}
-                                </div>
-
-                            </form>
-                            {/* </div> */}
-                        </div>
-                    </div>
+                <Form.Item
+                    label="Password"
+                    name="password"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please input your password!',
+                        },
+                    ]}
+                >
+                    <Input.Password />
+                </Form.Item>
+                <Form.Item
+                    wrapperCol={{
+                        offset: 8,
+                        span: 16,
+                    }}
+                >
+                    <Button type="primary" htmlType="submit" className="ms-sm-5">
+                        Submit
+                    </Button>
+                </Form.Item>
+                <a href="/forgot-password" className="padding">Forget Password?</a>
+            </Form>
+            <div className="ms-sm-6">
+                <p className="mb-0 mr-1 pb-2 color">Don't have an account?</p>
+                <div className="ms-sm-5">
+                    <Button type="primary" onClick={showModal}>
+                        Register
+                    </Button>
                 </div>
-            </section>
+
+            </div>
             <>
                 <Modal title="Basic Modal"
                     open={isModalOpen}
@@ -72,7 +122,7 @@ export default function LandingPage() {
                     <RegisterForm />
                 </Modal>
             </>
-        </div>
+        </div >
 
     )
 }

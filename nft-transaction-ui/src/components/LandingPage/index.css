@@ -82,17 +82,19 @@ root {
 
 body {
     margin: 0;
+    background-image: url("land_bg_image.jpg");
+    height: 100%;
     font-family: var(--bs-body-font-family);
     font-size: var(--bs-body-font-size);
     font-weight: var(--bs-body-font-weight);
     line-height: var(--bs-body-line-height);
-    color: var(--bs-body-color);
     overflow: hidden;
     text-align: var(--bs-body-text-align);
-    background-color: var(--bs-body-bg);
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent
 }
+
+
 
 hr {
     margin: 1rem 0;
@@ -204,6 +206,27 @@ address {
 
 .la-bg-img{
     background-image: url("land_bg_image.jpg");
+    height: 100%;
+}
+.login{
+    text-align: center;
+    padding-bottom: 30px;
+}
+
+.color{
+    color:#fff;
+}
+
+.forget{
+    text-align: center;
+}
+
+.padding{
+    padding-left: 40%;
+}
+
+.pt-40{
+    padding-top: 10%;
 }
 
 .cont-img{
@@ -9736,7 +9759,9 @@ fieldset:disabled .btn {
     .ms-sm-5 {
         margin-left: 3rem !important
     }
-
+	.ms-sm-6{
+		margin-left: 8rem !important
+	}
     .ms-sm-auto {
         margin-left: auto !important
     }

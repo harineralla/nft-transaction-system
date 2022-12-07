@@ -17,9 +17,15 @@ import AdbIcon from '@mui/material/Avatar';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import logo from '../navBar/logo_1.jpg';
 import { GlobalStyles } from '@mui/styled-engine';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { Add, Savings } from '@mui/icons-material';
+import { Modal } from 'antd';
+import DepositForm from '../DepositForm/index';
+import { useSelector } from 'react-redux';
 
-const pages = ['Account', 'Dashboard', 'Market', 'Owned Products', 'Wallet', 'Cart'];
+const pages = [/*'Account'*/, 'Dashboard', 'Market', 'Owned Products', 'Wallet', 'Cart'];
 const settings = ['Profile', 'Logout'];
 
 const Search = styled('div')(({ theme }) => ({
@@ -82,6 +88,17 @@ const theme = {
 function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const [isModalOpen, setIsModalOpen] = React.useState(false);
+    const userDetails = useSelector(({ nftAppReducer }) => nftAppReducer.userReducer.userInfo);
+    const navigate = useNavigate();
+
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
@@ -93,6 +110,8 @@ function ResponsiveAppBar() {
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
     };
+
+
 
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
@@ -127,26 +146,9 @@ function ResponsiveAppBar() {
     return (
         <appBarStyles>
             <AppBar position="static" className='header-bg'>
-                <Container maxWidth="xl">
-                    <Toolbar disableGutters>
-                        <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-                        <Typography
-                            variant="h6"
-                            noWrap
-                            component="a"
-                            href="/"
-                            sx={{
-                                mr: 8,
-                                display: { xs: 'none', md: 'flex' },
-                                fontFamily: 'monospace',
-                                fontWeight: 900,
-                                letterSpacing: '.3rem',
-                                color: 'inherit',
-                                textDecoration: 'none',
-                            }}
-                        >
-                            LOGO
-                        </Typography>
+                <Container maxWidth="xl" sx={{ pb: 1, pt: 1 }}>
+                    <Toolbar disableGutters >
+                        <img width={90} height={90} src={logo} alt='LOGO' />
 
                         <Search>
                             <SearchIconWrapper>
@@ -244,18 +246,19 @@ function ResponsiveAppBar() {
                         </Box>
 
                         <Box sx={{ flexGrow: 0 }}>
-                            <Tooltip title="NFT cart">
-                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 5 }}>
-                                    <ShoppingCartIcon />
+                            <Tooltip title="Deposit">
+                                <IconButton onClick={showModal} sx={{ p: 0, pr: 2 }}>
+                                    <Savings sx={{ fontSize: "40px" }} />
                                 </IconButton>
+
                             </Tooltip>
                             <Tooltip title="Open settings">
-                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                    <AccountCircle />
+                                <IconButton size='large' onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                    <AccountCircle sx={{ fontSize: "80px" }} />
                                 </IconButton>
                             </Tooltip>
                             <Menu
-                                sx={{ mt: '45px' }}
+                                sx={{ mt: '45px', ml: '0' }}
                                 id="menu-appbar"
                                 anchorEl={anchorElUser}
                                 anchorOrigin={{
@@ -270,14 +273,21 @@ function ResponsiveAppBar() {
                                 open={Boolean(anchorElUser)}
                                 onClose={handleCloseUserMenu}
                             >
-                                {settings.map((setting) => (
-                                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                        <Typography textAlign="center">{setting}</Typography>
-                                    </MenuItem>
-                                ))}
+                                <MenuItem onClick={navprofile}>Profile</MenuItem>
+                                <MenuItem onClick={navlogin}>Logout</MenuItem>
                             </Menu>
                         </Box>
+                        <Modal
+                            title="Enter below details"
+                            open={isModalOpen}
+                            // onOk={handleOk} 
+                            onCancel={handleCancel}
+                            footer={null}
+                        >
+                            <DepositForm userdetails={userDetails} />
+                        </Modal>
                     </Toolbar>
+
                 </Container>
             </ AppBar>
         </appBarStyles>

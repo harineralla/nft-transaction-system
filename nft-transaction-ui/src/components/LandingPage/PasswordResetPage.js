@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import "../styles/landingPage.css";
+
 
 export default function PasswordResetPage() {
     return (

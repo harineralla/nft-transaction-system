@@ -22,11 +22,11 @@ export default function Profile(){
             </div>
             <div className="c2">
                 <div className="c1">
-                    <h4>Name        : {userData("name")}    </h4>
-                    <h4>User ID     : {userData("user_id")}    </h4>
-                    <h4>Phone no    :  {userData("ph_no")}   </h4>
-                    <h4>Address     :{userData("address_id")}</h4>
-                    <h4>Email       :{userData("email")}</h4>
+                    <h4>Name        : {userData["name"]}    </h4>
+                    <h4>User ID     : {userData["user_id"]}    </h4>
+                    <h4>Phone no    :  {userData["ph_no"]}   </h4>
+                    <h4>Address     :{userData["address_id"]}</h4>
+                    <h4>Email       :{userData["email"]}</h4>
                 </div>
         </div>
         </div>

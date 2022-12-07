@@ -25,10 +25,10 @@ export default function WalletCard() {
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          Name : {userData("name")}
+          Name : {userData["name"]}
         </Typography>
         <Typography gutterBottom variant="h5" component="div">
-          ETH Balance :{userData("eth_balance")}
+          ETH Balance :{userData["eth_balance"]}
         </Typography>
       </CardContent>
     </Card>
