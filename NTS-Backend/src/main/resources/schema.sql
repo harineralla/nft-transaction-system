@@ -22,6 +22,7 @@ USE db_nts;
   `eth_balance` decimal(10,2) DEFAULT '0.00',
   `fiat_balance` decimal(10,2) DEFAULT '0.00',
   `level` tinyint(1) DEFAULT '0',
+  `role` tinyint(1) DEFAULT '0',
   `name` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `ph_no` varchar(255) DEFAULT NULL,

@@ -50,6 +50,9 @@ public class User {
 	//true ->gold | false ->silver
 	@Column(columnDefinition = "boolean default false")
 	private boolean level;
+	// false ->manager | true ->trader
+	@Column(columnDefinition = "boolean default false")
+	private boolean role;
 	@Column(columnDefinition="Decimal(10,2) default '0.00'")
 	private BigDecimal eth_balance;
 	@Column(columnDefinition="Decimal(10,2) default '0.00'")
@@ -155,6 +158,12 @@ public class User {
 	}
 	public void setEthAddress(String ethAddress) {
 		this.ethAddress = ethAddress;
+	}
+	public boolean isRole() {
+		return role;
+	}
+	public void setRole(boolean role) {
+		this.role = role;
 	}
 
 

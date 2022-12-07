@@ -6,12 +6,12 @@
     ( 'Boston', 'New York', '5462 North', 345546),
     ('Las Vegas' , 'Arizona','823 W',58522);
  
- insert into tbl_user (cell_no, email, eth_address, eth_balance, fiat_balance, level,name, password, ph_no, address_id) values
-    ("214540992", 'john@gmail.com', 'john_eth_address', 3238.3, 1132.22, 0, 'John Thomas', 'nkadudbwbjdw', "3232974423", 1),
-    ("214540934", 'sam@gmail.com', 'sam_eth_address', 42342323.3, 134532.22, 1, 'Sam Jonas', 'wrkrejwkfbsi', "5633474423", 2),
-    ("712532992", 'bob@gmail.com', 'bob_eth_address', 3435323.3, 122132.22, 1, 'Bob Alex', 'wkdhwihfkw', "5632974443", 3),
-    ("614540992", 'anju@gmail.com', 'anju_eth_address', 356242.3, 5472482.22, 1, 'Anju Boby', 'dwugwwfwiw', "7633974423", 4),
-    ("567454092", 'Jenifer@gmail.com', 'jenifer_eth_address', 5234568.3, 1132.22, 1, 'Jenifer Thomas', 'heueufwqduca', "3696274423", 5);
+ insert into tbl_user (cell_no, email, eth_address, eth_balance, fiat_balance, level,name, password, ph_no, address_id, role) values
+    ("214540992", 'john@gmail.com', 'john_eth_address', 3238.3, 1132.22, 0, 'John Thomas', 'nkadudbwbjdw', "3232974423", 1, 0),
+    ("214540934", 'sam@gmail.com', 'sam_eth_address', 42342323.3, 134532.22, 1, 'Sam Jonas', 'wrkrejwkfbsi', "5633474423", 2, 0),
+    ("712532992", 'bob@gmail.com', 'bob_eth_address', 3435323.3, 122132.22, 1, 'Bob Alex', 'wkdhwihfkw', "5632974443", 3, 0),
+    ("614540992", 'anju@gmail.com', 'anju_eth_address', 356242.3, 5472482.22, 1, 'Anju Boby', 'dwugwwfwiw', "7633974423", 4, 1),
+    ("567454092", 'Jenifer@gmail.com', 'jenifer_eth_address', 5234568.3, 1132.22, 1, 'Jenifer Thomas', 'heueufwqduca', "3696274423", 5, 1);
 
 
 insert into tbl_deposit ( eth_amt, fiat_amt, payment_address, type, user_id) values
