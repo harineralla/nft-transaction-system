@@ -23,7 +23,7 @@ insert into tbl_deposit ( eth_amt, fiat_amt, payment_address, type, user_id) val
 
     insert into tbl_nft(nft_id, eth_address, name, price, wants_to_sell, user_id) values 
     (1, 'hjfiswfwvj', 'Monalisa_painting', 23454, 0,  1),
-    (2, 'djqhfdiyqwd', 'Nature_painting', 32574, 1,  2),
+    (2, 'djqhfdiyqwd', 'Nature_painting', 32574, 0,  1),
     (3, 'dvaufdkou', 'Calender_Photos', 3472,0, 3),
     (4, 'gdkwqofw', 'Serenity_Album', 2435, 1, 4),
     (5, 'hqdgyfq2o', 'Avengers', 3546, 1,5);

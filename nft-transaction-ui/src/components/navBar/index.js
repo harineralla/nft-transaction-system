@@ -24,7 +24,7 @@ import { Add, Savings } from '@mui/icons-material';
 import { Modal } from 'antd';
 import DepositForm from '../DepositForm/index';
 import { useSelector, useDispatch } from 'react-redux';
-import { getTransactionHistory, getCurrentEthPrice } from "../../redux/actions";
+import { getTransactionHistory, getCurrentEthPrice, getMarketNFTs } from "../../redux/actions";
 
 const pages = [/*'Account'*/, 'Dashboard', 'Market', 'Owned Products', 'Wallet', 'Cart'];
 const settings = ['Profile', 'Logout'];
@@ -136,6 +136,7 @@ function ResponsiveAppBar({ trader_role }) {
     }
     const navmarket = () => {
         navigate("/market-place")
+        dispatch(getMarketNFTs());
         dispatch(getCurrentEthPrice());
     }
     const navmanager = () => {

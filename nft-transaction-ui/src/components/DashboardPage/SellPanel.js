@@ -56,12 +56,11 @@ export default function SellPanel({ userNfts }) {
                         >
                             <p>${item.price}.00 Eth</p>
                             <>
-                                {boolValue ?
-                                    <Button type="primary" htmlType="submit" onClick={handleSellNFT(item.nft_id)}>
-                                        Sell NFT
-                                    </Button> :
-                                    <></>
-                                }
+                                
+                                <Button type="primary" htmlType="submit" onClick={() => handleSellNFT(item.nft_id)}>
+                                    Sell NFT
+                                </Button> 
+                                    
                             </>
                         </Card>
                     </List.Item>
