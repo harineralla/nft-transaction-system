@@ -75,8 +75,6 @@ const btnSx = {
     my: 2,
     color: 'white',
     display: 'block',
-    pl: 4,
-    pr: 4,
     "&:hover": {
         borderColor: 'black',
         backgroundColor: '#C5A9DC',
@@ -150,6 +148,9 @@ function ResponsiveAppBar() {
     const navprofile = () => {
         navigate("/profile")
     }
+    const navwallet = () => {
+        navigate("/wallet")
+    }
     const appBarStyles = styled('div')(({ theme }) => ({
         backgroundColor: '#200636 !important',
     }));
@@ -193,6 +194,7 @@ function ResponsiveAppBar() {
                                     <GlobalStyles styles={{ marginRight: '30px' }} />
                                     <MenuItem onClick={navdashboard}>Dashboard</MenuItem>
                                     <MenuItem onClick={navmarket}>Market</MenuItem>
+                                    <MenuItem onClick={navwallet}>wallet</MenuItem>
                                     <MenuItem onClick={navmanager}>Manager</MenuItem>
                                     <MenuItem onClick={navhistory}>History</MenuItem>
                                 </React.Fragment>
@@ -231,6 +233,13 @@ function ResponsiveAppBar() {
                                 variant="outlined"
                             >
                                 Market
+                            </Button>
+                            <Button
+                                onClick={navwallet}
+                                sx={btnSx}
+                                variant="outlined"
+                            >
+                                Wallet
                             </Button>
                             <Button
                                 onClick={navmanager}

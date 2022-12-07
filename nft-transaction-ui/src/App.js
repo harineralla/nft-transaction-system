@@ -2,10 +2,11 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import LandingPage from "./components/LandingPage";
 import DashboardPage from "./components/DashboardPage";
-import PasswordResetPage from "../src/components/LandingPage/PasswordResetPage";
+import PasswordResetPage from "./components/PasswordResetPage";
 import MarketPlace from "./components/MarketPlace";
 import TransactionHistory from "./components/History/TransactionHistory";
 import ManagerPanel from "./components/ManagerPanel";
+import WalletCard from "../src/components/navBar/wallet";
 import './App.css';
 import Profile from "./components/navBar/profile";
 
@@ -21,6 +22,7 @@ function App() {
           <Route path="/history" element={<TransactionHistory />} />
           <Route path="/manager" element={<ManagerPanel />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/wallet" element={<WalletCard />} />
         </Routes>
       </Router>
     </div>

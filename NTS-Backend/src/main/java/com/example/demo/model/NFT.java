@@ -1,8 +1,6 @@
 package com.example.demo.model;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,15 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import org.web3j.abi.datatypes.generated.Uint256;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-
 
 
 
@@ -40,7 +30,6 @@ public class NFT {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="user_id")
 	private User user;
-
 
 	public Long getNft_id() {
 		return nft_id;
@@ -77,11 +66,5 @@ public class NFT {
 	}
 	public void setWants_to_sell(boolean wants_to_sell) {
 		this.wants_to_sell = wants_to_sell;
-	}
-
-	@Override
-	public String toString() {
-		return "NFT [nft_id=" + nft_id + ", eth_address=" + eth_address + ", name=" + name + ", price=" + price
-				+ ", wants_to_sell=" + wants_to_sell + ", user=" + user + ", Transactions=  ]";
 	}
 }

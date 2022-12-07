@@ -3,6 +3,8 @@
  */
 package com.example.demo.controller;
 
+
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -42,7 +44,7 @@ public class DepositController {
 	@PostMapping("/deposit")
 	public ResponseEntity<Deposit> save(@RequestBody Deposit deposit) {
 		deposit.setDate_of_payment(new Date());
-		// System.out.println(deposit.toString());
+		System.out.println(deposit.toString());
 		Deposit depositOne = depositService.save(deposit);
 		User user = userService.findById(deposit.getUser().getUser_id());
 //		System.out.println(user.getUser_id());
