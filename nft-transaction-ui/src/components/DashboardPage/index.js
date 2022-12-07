@@ -10,7 +10,7 @@ import "./index.css";
 
 export default function DashboardPage() {
     const dispatch = useDispatch();
-    
+
     const [userDetails, getUserData] = useState({});
     const [userNFTs, getUserNfts] = useState([]);
 
@@ -21,39 +21,10 @@ export default function DashboardPage() {
         getUserNfts(userNFTs);
     }, []);
 
-    /*const showModal = () => {
-        setIsModalOpen(true);
-    };
-
-    const handleCancel = () => {
-        setIsModalOpen(false);
-    };*/
-
     return (
         <div className='bg-img'>
-            {/*<Link to="/manager">
-                <Button type="primary">Manager</Button>
-            </Link>
-            <Link to="/history">
-                <Button type="primary">History</Button>
-            </Link>
-            <Button  onClick={showModal}>
-                Deposit eth
-            </Button>
-            <Link to="/">
-                <Button type="primary">Log out</Button>
-    </Link>*/}
             <ResponsiveAppBar />
             <SellPanel userNfts={userNFTs} />
-            {/*<Modal
-                title="Basic Modal"
-                open={isModalOpen}
-                // onOk={handleOk} 
-                onCancel={handleCancel}
-                footer={null}
-            >
-                <DepositForm userdetails={userDetails} />
-</Modal>*/}
         </div>
     )
 }

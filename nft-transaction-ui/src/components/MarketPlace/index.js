@@ -12,15 +12,21 @@ function MarketPlace() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [buyNFT_id, setBuyID] = useState(0);
     const [userDetails, getUserData] = useState({});
+    const [marketnfts, setNfts] = useState([]);
+    const [marketPrice, setPrice] = useState({})
 
     const marketNFTS = useSelector(({ nftAppReducer }) => nftAppReducer.userReducer.marketNFTS);
 
-    const savedTransactionDetails = useSelector(({ nftAppReducer }) => nftAppReducer.userReducer.saveTransactionDetails);
+    // const savedTransactionDetails = useSelector(({ nftAppReducer }) => nftAppReducer.userReducer.saveTransactionDetails);
+    const savedEthPrice = useSelector(({ nftAppReducer }) => nftAppReducer.userReducer.eth_price.data);
 
     useEffect(() => {
         var data = JSON.parse(window.localStorage.getItem('USER_DETAILS'));
+        var marketNFTS = JSON.parse(window.localStorage.getItem('MARKET_NFTS'));
+        var marketprice = JSON.parse(window.localStorage.getItem('MARKET_ETH_PRICE'));
         getUserData(data);
-        dispatch(getMarketNFTs());
+        setNfts(marketNFTS);
+        setPrice(marketprice);
     })
 
     const handleClose = () => {
@@ -46,7 +52,7 @@ function MarketPlace() {
         } else if (details["type"] === "ethereum") {
             depositdetails["commission_type"] = true;
         }
-        dispatch(saveTransactionDetails(buyNFT_id));
+        dispatch(saveTransactionDetails(buyNFT_id, marketPrice["amount"]));
     }
 
     return (
@@ -56,7 +62,7 @@ function MarketPlace() {
                     gutter: 16,
                     column: 4,
                 }}
-                dataSource={marketNFTS}
+                dataSource={marketnfts}
                 renderItem={(item) => (
                     <List.Item>
                         <Card
@@ -68,7 +74,7 @@ function MarketPlace() {
                             cover={<img alt="example" src={item.nft_id} />}
                         >
                             <p>${item.price}.00 Eth</p>
-                            <Button type="primary" htmlType="submit" onClick={()=>showModal(item.nft_id)}>
+                            <Button type="primary" htmlType="submit" onClick={() => showModal(item.nft_id)}>
                                 Buy NFT
                             </Button>
                         </Card>
@@ -96,8 +102,8 @@ function MarketPlace() {
                         // onFinishFailed={onFinishFailed}
                         autoComplete="off"
                     >
-                        
-                        
+
+
                         <Form.Item
                             label="Commission Type"
                             name="type"
