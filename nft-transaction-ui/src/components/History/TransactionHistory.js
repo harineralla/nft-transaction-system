@@ -1,21 +1,29 @@
-import React, { useEffect } from "react";
-import { Table, Button, Card, Typography} from 'antd';
+import React, { useEffect, useState } from "react";
+import { Table, Button, Card, Typography } from 'antd';
 
-import { getTransactionHistory } from "../../redux/actions";
+
 import { useDispatch, useSelector } from "react-redux";
+import { cancelTrasaction } from "../../redux/actions";
 
 function TransactionHistory() {
     const dispatch = useDispatch();
 
+    const [userHistory, setUserHistory] = useState([]);
+    const [userDetails, getUserData] = useState({});
     const data = useSelector(({ nftAppReducer }) => nftAppReducer.userReducer.history);
-    // data["nft_id"]= data["nft"]["nft_id"];
-    var userData = JSON.parse(window.localStorage.getItem('USER_DETAILS'));
 
-    useEffect(()=>{
-        dispatch(getTransactionHistory(userData["user_id"]));
-    })
+    useEffect(() => {
+        var data = JSON.parse(window.localStorage.getItem('USER_DETAILS'));
+        var userHistory = JSON.parse(window.localStorage.getItem('USER_HISTORY'));
+        getUserData(data);
+        setUserHistory(userHistory);
+    }, []);
 
-    // console.log(data)
+    const handleCancel = (record) => {
+        // console.log("history of ", record);
+        dispatch(cancelTrasaction(record["transaction_id"]))
+    }
+    console.log("history ", userHistory)
     const columns = [
         {
             title: 'Transaction Id',
@@ -26,6 +34,12 @@ function TransactionHistory() {
             title: 'NFT Id',
             dataIndex: 'nft_id',
             key: 'nft_id',
+            render: (text, record) => {
+                // console.log(record.nft.nft_id)
+                return {
+                    children: <p>{record.nft.nft_id}</p>,
+                };
+            }
         },
         {
             title: 'Buyer Ethereum Address',
@@ -39,8 +53,8 @@ function TransactionHistory() {
         },
         {
             title: 'Value in Ethereum',
-            dataIndex: 'value_in_ethereum',
-            key: 'value_in_ethereum',
+            dataIndex: 'value_in_eth',
+            key: 'value_in_eth',
         },
         {
             title: 'Commission Paid',
@@ -51,6 +65,17 @@ function TransactionHistory() {
             title: 'Commission Type',
             dataIndex: 'commission_type',
             key: 'commission_type',
+            render: (text, record) => {
+                var type = "";
+                if (!record.commision_type === true) {
+                    type = "Ethereum"
+                } else {
+                    type = "Fiat/USD"
+                }
+                return {
+                    children: <p>{type}</p>,
+                };
+            }
         },
         {
             title: 'Current Ethereum Price',
@@ -66,9 +91,9 @@ function TransactionHistory() {
             title: 'Cancel Transaction',
             dataIndex: 'cancel_transaction',
             key: 'cancel_transaction',
-            render: () => {
+            render: (text, record) => {
                 return {
-                    children: <Button>Cancel</Button>,
+                    children: <Button onClick={() => handleCancel(record)}>Cancel</Button>,
                 };
             }
         },
@@ -77,9 +102,9 @@ function TransactionHistory() {
         <Card>
             <Table
                 columns={columns}
-                dataSource={data}
+                dataSource={userHistory}
                 scroll={{ y: 775 }}
-                
+
             />
         </Card>
     )

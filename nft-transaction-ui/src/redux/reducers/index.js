@@ -7,7 +7,8 @@ import {
     USER_LOGIN_ERROR, 
     MANAGER_DATE_RANGES,
     CLOSE_REGISTER_MODAL,
-    GET_MARKET_NFTS
+    GET_MARKET_NFTS,
+    GET_CURRENT_ETH_PRICE
 } from "../actions/types";
 
 const initialState = {
@@ -22,7 +23,8 @@ const initialState = {
     userLoginError: "",
     rangeHistory: [],
     closeRegisterModal: false,
-    marketNFTS: []
+    marketNFTS: [], 
+    eth_price: {}
 }
 
 const userReducer = (state = initialState, action) => {
@@ -82,6 +84,12 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 marketNFTS: action.payload
+            }
+        }
+        case GET_CURRENT_ETH_PRICE:{
+            return{
+                ...state,
+                eth_price: action.payload
             }
         }
         default: return state;
