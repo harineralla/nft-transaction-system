@@ -36,15 +36,17 @@ public class TransactionServiceImpl implements TransactionService{
 
 	@Override
 	public Transaction save(Transaction transaction,BigDecimal eth_price) {
-		System.out.println("dshfs");
+		// System.out.println("dshfs");
+		NFT nft = nftService.findById(transaction.getNft().getNft_id());
+
+		String seller_eth_address = nft.getUser().getEthAddress();
 		String buyer_eth_address = transaction.getBuyer_eth_address();
-		String seller_eth_address = transaction.getSeller_eth_address();
+		// String seller_eth_address = transaction.getSeller_eth_address();
 		User buyer = userService.findByETHAddresUser(buyer_eth_address);
 		User seller = userService.findByETHAddresUser(seller_eth_address);
 
 		// User user = userService.findById(deposit.getUser().getUser_id());
-		System.out.println("dshf "+transaction.toString());
-		NFT nft = nftService.findById(transaction.getNft().getNft_id());
+		// System.out.println("dshf "+transaction.toString());
 		// NFT nft = nftService
 		// System.out.println("nft sad "+nft.getNft_id());
 		BigDecimal commission = buyer.isLevel()?gold_membership_commission:silver_membership_commission;
