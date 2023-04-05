@@ -1,4 +1,11 @@
 # nft-transaction-system
+Motivated by the recent popularity of non-fungible tokens (NFTs1
+), I would like to set up a local shop that can buy/sell NFTs for investors in Dallas based on Ethereum blockchain2.
+Now I have to develop a web based NFT trading application. In particular,
+to create convenient and easy-to-use software for NFT traders who are trying to
+buy and sell NFTs. To help myself, I have to develop a web based software system called
+NTS (NFT Transaction System) that leverage the relational DBMS technology for data storage
+and querying. 
 
 
 # Getting Started
