@@ -6,7 +6,7 @@ Welcome to the NFT Transaction System (NTS) project! NTS is a web-based applicat
 
 ## Features
 
-- **User Management**: Each trader has a unique client ID, name, phone number, cell phone number, email address, and address.
+- **User Management**: Each trader has a unique client ID, name, phone number, cell-phone number, email address, and address.
 - **Ethereum Integration**: Traders have unique Ethereum addresses used for trading NFTs.
 - **Trader Classification**: Traders are classified as either "Gold" or "Silver" based on their transaction volume.
 - **Transaction Management**: Traders can buy and sell NFTs, with automatic verification of ownership and funds.
@@ -19,9 +19,20 @@ Welcome to the NFT Transaction System (NTS) project! NTS is a web-based applicat
 
 The NTS project features a comprehensive database schema designed for optimal performance and scalability using PostgreSQL. Key aspects include:
 
-- **Schema Design**: The database schema includes tables for traders, transactions, payments, and NFTs, with relationships and constraints that ensure data integrity and consistency.
-- **Indexing**: Indexes are strategically used to optimize the performance of frequent queries, enhancing the system's responsiveness.
-- **Data Integrity**: Foreign keys, unique constraints, and other integrity constraints ensure that the data remains accurate and reliable.
+### Schema Overview
+
+| Table            | Description                                                                                                      |
+|------------------|------------------------------------------------------------------------------------------------------------------|
+| Traders          | Stores trader details, including unique client ID, personal information, Ethereum address, and classification.  |
+| NFTs             | Maintains information about each NFT, including unique token ID, smart contract address, and name.              |
+| Transactions     | Records every transaction with details such as transaction value, date, commission paid, NFT token ID, seller and buyer Ethereum addresses, and commission type. |
+| Payments         | Logs all payments, including amount, date, payment type, trader ID, and payment address.                        |
+| Cancellation Logs| Keeps track of any transaction cancellations for auditing purposes.                                              |
+
+### Database Management
+
+- **Indexing**: Strategic indexing on key fields to optimize query performance and ensure efficient data retrieval.
+- **Data Integrity**: Use of foreign keys, unique constraints, and other integrity constraints to maintain accurate and reliable data.
 - **Scalability**: The database is designed to handle increasing loads through techniques such as partitioning and replication.
 - **Backup and Recovery**: Regular backup and recovery processes are implemented to protect against data loss and ensure business continuity.
 - **Security**: The database employs encryption, access control, and other security measures to safeguard sensitive information.
@@ -35,22 +46,14 @@ The NTS project features a comprehensive database schema designed for optimal pe
 - **Blockchain Integration**: Web3j
 - **Containerization**: Docker
 
-## Usage
-
-### Running the Application
-
-- Navigate to `http://localhost:5000` in your web browser.
-- Log in using the credentials created during the setup.
-- Access the trader and manager functionalities via the user interface.
-
-### Transaction Management
+## Transaction Management
 
 - **Buying an NFT**: Login, specify the NFT smart contract address and token ID, and complete the purchase.
 - **Selling an NFT**: Ensure ownership of the NFT and list it for sale.
 - **Depositing Funds**: Add funds to your account in USD or Ethereum.
 - **Transaction History**: View past transactions and filter by date.
 
-### Manager Interface
+## Manager Interface
 
 - Access aggregate information on daily, weekly, and monthly transactions.
 - Retrieve transaction reports based on custom date ranges.
