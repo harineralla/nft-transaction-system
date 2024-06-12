@@ -2,11 +2,11 @@
 
 ## Overview
 
-Welcome to the NFT Transaction System (NTS) project! NTS is a web-based application designed to facilitate the buying and selling of NFTs (Non-Fungible Tokens) on the Ethereum blockchain. The system leverages relational DBMS technology for data storage and querying to ensure efficient and secure transactions.
+Welcome to the NFT Transaction System (NTS) project! NTS is a web-based application designed to facilitate the buying and selling of NFTs (Non-Fungible Tokens) on the Ethereum blockchain. The system leverages relational DBMS technology, specifically PostgreSQL, for robust data storage and querying to ensure efficient and secure transactions.
 
 ## Features
 
-- **User Management**: Each trader has a unique client ID, name, phone number, cell-phone number, email address, and address.
+- **User Management**: Each trader has a unique client ID, name, phone number, cell phone number, email address, and address.
 - **Ethereum Integration**: Traders have unique Ethereum addresses used for trading NFTs.
 - **Trader Classification**: Traders are classified as either "Gold" or "Silver" based on their transaction volume.
 - **Transaction Management**: Traders can buy and sell NFTs, with automatic verification of ownership and funds.
@@ -15,75 +15,25 @@ Welcome to the NFT Transaction System (NTS) project! NTS is a web-based applicat
 - **Transaction Cancellation**: Allows for transaction cancellations within 15 minutes of submission.
 - **History and Reporting**: Traders can view their transaction history, and managers can access aggregate transaction reports.
 
-## Requirements
+## Database Design and Management
 
-- Java 11+
-- Spring Boot 2.5+
-- PostgreSQL 13+
-- Node.js 14+ and npm (for Svelte.js frontend)
-- Web3j for Ethereum interactions
-- Docker (optional, for containerization)
+The NTS project features a comprehensive database schema designed for optimal performance and scalability using PostgreSQL. Key aspects include:
 
-## Installation
+- **Schema Design**: The database schema includes tables for traders, transactions, payments, and NFTs, with relationships and constraints that ensure data integrity and consistency.
+- **Indexing**: Indexes are strategically used to optimize the performance of frequent queries, enhancing the system's responsiveness.
+- **Data Integrity**: Foreign keys, unique constraints, and other integrity constraints ensure that the data remains accurate and reliable.
+- **Scalability**: The database is designed to handle increasing loads through techniques such as partitioning and replication.
+- **Backup and Recovery**: Regular backup and recovery processes are implemented to protect against data loss and ensure business continuity.
+- **Security**: The database employs encryption, access control, and other security measures to safeguard sensitive information.
+- **Performance Optimization**: Performance tuning measures, including query optimization and caching strategies, are implemented to maintain high system efficiency.
 
-### Prerequisites
+## Technologies Used
 
-Ensure you have the following installed:
-
-- Java 11+
-- PostgreSQL
-- Node.js and npm
-
-### Steps
-
-1. **Clone the repository**:
-    ```sh
-    git clone https://github.com/harineralla/nft-transaction-system.git
-    cd nft-transaction-system
-    ```
-
-2. **Backend Setup**
-
-    a. **Navigate to the backend directory**:
-    ```sh
-    cd backend
-    ```
-
-    b. **Configure the database**:
-    - Create a PostgreSQL database and user for the project.
-    - Update the `application.properties` file with your database settings.
-
-    c. **Build the backend**:
-    ```sh
-    ./mvnw clean install
-    ```
-
-    d. **Run the backend**:
-    ```sh
-    ./mvnw spring-boot:run
-    ```
-
-3. **Frontend Setup**
-
-    a. **Navigate to the frontend directory**:
-    ```sh
-    cd ../frontend
-    ```
-
-    b. **Install the dependencies**:
-    ```sh
-    npm install
-    ```
-
-    c. **Run the frontend**:
-    ```sh
-    npm run dev
-    ```
-
-4. **Access the application**
-
-    - Open your web browser and navigate to `http://localhost:5000` for the frontend.
-    - The backend will be running on `http://localhost:8080`.
+- **Backend**: Spring Boot, Java
+- **Frontend**: Svelte.js, JavaScript
+- **Database**: PostgreSQL
+- **Blockchain Integration**: Web3j
+- **Containerization**: Docker
 
 ## Usage
 
@@ -95,9 +45,9 @@ Ensure you have the following installed:
 
 ### Transaction Management
 
-- **Buying an NFT**: Log in, specify the NFT smart contract address and token ID, and complete the purchase.
+- **Buying an NFT**: Login, specify the NFT smart contract address and token ID, and complete the purchase.
 - **Selling an NFT**: Ensure ownership of the NFT and list it for sale.
-- **Depositing Funds**: Add funds to your account in either USD or Ethereum.
+- **Depositing Funds**: Add funds to your account in USD or Ethereum.
 - **Transaction History**: View past transactions and filter by date.
 
 ### Manager Interface
